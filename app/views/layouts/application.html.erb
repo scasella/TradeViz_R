@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Accounts</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+  <div><%= image_tag("logo.png", :id => "logo", :alt => "TradeViz") %></div>
+  <div id="curve_chart"></div>
+
+  <%= yield %>
+
+  <div id="bottom-links">
+    <p class="link"><a class="link" href="">ABOUT</a>&nbsp&nbsp|&nbsp&nbsp<a class="link" href="">DISCLAIMER</a></p>
+  </div>
+</body>
+</html>
