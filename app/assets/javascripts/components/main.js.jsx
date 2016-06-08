@@ -9,13 +9,15 @@ componentDidMount: function() {
 
   console.log("mounted")
 },
+currentText: "",
 render: function() {
   return (
   <div>
+    <div id="secondary-bg">
     <div id="home-outline">
       <div>
         <div id='field-div'>
-          <input id="field-home" defaultValue="SPY" type='text' autoComplete="off"></input>
+          <input id="field-home" onChange={this.keyPressed} defaultValue="SPY" type='text' autoComplete="off"></input>
         </div>
           <button type='button' id="b-home" onClick={this.buttonClick}></button>
         </div>
@@ -24,13 +26,31 @@ render: function() {
         </div>
       </div>
       <div id="home-text"></div>
+      </div>
   </div>
   )
 },
+keyPressed: function(event) {
+  this.currentText = event.target.value.toUpperCase()
+  console.log(this.currentText)
+},
 buttonClick: function() {
-  GLOBAL_CHART = true
-    chart.draw(chartData, chartOptions)
-}
+  $.ajax({
+    //data: formData,
+    url: 'https://agile-wave-32875.herokuapp.com/'+this.currentText+'/1',
+    type: "GET",
+    dataType: "json",
+    success: function(data) {
+      console.log(data);
+    }.bind(this)
+  });
+  //GLOBAL_CHART = true
+    //chart.draw(chartData, chartOptions)
+    console.log("test")
+    //document.body.style.backgroundImage = 'url("/assets/secondBG.jpg")';
+    //document.getElementById("logo").style.display = 'none';
+    //document.body.style.backgroundSize = "90% 118%";
+    }
 })
 
 GLOBAL_CHART = false

@@ -1,14 +1,15 @@
 body {
   background-image: url('/assets/bg.jpg');
-  background-size: 100% 118%;
+  background-size: 100% 105%;
   background-repeat: no-repeat;
   background-position: top left;
 }
+
 #logo {
   padding-top: 25px;
   padding-left: 25px;
-  height: 100px;
-  width: 235px
+  height: 83px;
+  width: 200px
 }
 #home-outline {
   margin: auto;
