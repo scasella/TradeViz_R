@@ -41,11 +41,21 @@ buttonClick: function() {
     type: "GET",
     dataType: "json",
     success: function(data) {
-      console.log(data);
+      console.log(data['matches']);
+      GLOBAL_DATA = []
+      for (i = 0; i < data['matches'][0].length; i++){
+        GLOBAL_DATA.push([])
+      }
+      for (ind = 0; ind < data['matches'].length; ind++) {
+        for (indT = 0; indT < data['matches'][ind].length; indT++) {
+          GLOBAL_DATA[indT].push(data['matches'][ind][indT])
+        }
+      }
+      console.log(GLOBAL_DATA);
     }.bind(this)
   });
-  //GLOBAL_CHART = true
-    //chart.draw(chartData, chartOptions)
+  GLOBAL_CHART = true
+    chart.draw(chartData, chartOptions)
     console.log("test")
     //document.body.style.backgroundImage = 'url("/assets/secondBG.jpg")';
     //document.getElementById("logo").style.display = 'none';
