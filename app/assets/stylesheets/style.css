@@ -1,15 +1,16 @@
 body {
   background-image: url('/assets/bg.jpg');
-  background-size: 100% 105%;
-  background-repeat: no-repeat;
-  background-position: top left;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: 'Roboto', sans-serif;
 }
-
 #logo {
   padding-top: 25px;
   padding-left: 25px;
-  height: 83px;
-  width: 200px
+  height: 95px;
+  width: 220px
 }
 #home-outline {
   margin: auto;
@@ -73,13 +74,23 @@ body {
   height: 80px;
   background: url('/assets/home-text.png') no-repeat 0 0 transparent;
   background-size: 100%;
-  margin-top: 100px;
-  min-width: 450px
+  margin-top: 50px;
+  min-width: 450px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  bottom: 22%
 }
 #bottom-links {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
-  width: 50%;
-  margin: 0 auto;
+  left: 0;
+  right: 0;
+  bottom: 2%;
 }
 .link {
   margin-top: 20%;
@@ -91,4 +102,28 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
   color: #E7ECEA
+}
+table {
+  margin-top: 150px;
+  position: relative;
+  width: 100%;
+}
+tr {
+  align: center;
+  text-align: center;
+  color: white
+}
+#chart1, #chart2, #chart3  {
+  margin-left: 50px
+}
+#star {
+  height: 15px;
+  width: 15px;
+  margin-bottom: 10px
+}
+#sharpe {
+  font-family: 'Roboto', sans-serif;
+  color: '#E7ECEA';
+  font-size: 9px;
+  font-weight: medium;
 }
