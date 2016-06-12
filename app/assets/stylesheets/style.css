@@ -10,7 +10,7 @@ body {
   padding-top: 25px;
   padding-left: 25px;
   height: 95px;
-  width: 220px
+  width: 218px
 }
 #home-outline {
   margin: auto;
@@ -103,8 +103,17 @@ body {
   font-size: 12px;
   color: #E7ECEA
 }
-table {
+#preloader {
   margin-top: 150px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  left: 0;
+  right: 0;
+}
+table {
+  margin-top: 75px;
   position: relative;
   width: 100%;
 }
@@ -114,16 +123,81 @@ tr {
   color: white
 }
 #chart1, #chart2, #chart3  {
+  margin-top: -25px;
   margin-left: 50px
 }
+#chart1F, #chart2F, #chart3F  {
+  margin-top: -5px;
+  margin-left: 75px;
+}
+#pl-p {
+  display: inline;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: medium;
+  margin-bottom: 10px;
+}
 #star {
+  display: inline;
   height: 15px;
-  width: 15px;
-  margin-bottom: 10px
+  margin-right: 3px;
+  margin-top: -1px
 }
 #sharpe {
+  display: inline;
   font-family: 'Roboto', sans-serif;
   color: '#E7ECEA';
-  font-size: 9px;
+  font-size: 10px;
+}
+#info-div {
+  margin-top: 20px;
+  padding-top: 10px;
+  display: inline-block;
+  background: url('/assets/field-home.png') no-repeat 0 0 transparent;
+  background-position: center center;
+  background-size: 150px 75px;
+  height: 75px;
+  width: 150px
+}
+/*#pl-p {
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
   font-weight: medium;
+  line-height: 43px;
+  width: 100px;
+  height: 100px;
+  background: url('/assets/field-home.png') no-repeat 0 0 transparent;
+  background-size: 100px, 100px;
+}*/
+.green {
+  color: #00B233
+}
+.red {
+  color: #FF0000
+}
+.1S {
+  height: 15px;
+  width: 15px;
+}
+.2S {
+  height: 15px;
+  width: 30px;
+}
+.3S {
+  height: 15px;
+  width: 80px;
+}
+#refresh {
+  font-weight: bold;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  left: 0;
+  right: 0;
+  color: white;
+  margin-top: 25px;
+  z-index: 2;
+
 }

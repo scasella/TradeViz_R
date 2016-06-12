@@ -17,6 +17,9 @@ render: function() {
   </div>
   )
 },
+reloadPage: function() {
+  window.location.reload(true);
+},
 renderLogic: function() {
   if (this.showResults == false) {
     return (
@@ -34,15 +37,19 @@ renderLogic: function() {
       )
     } else {
       return (
+    <div>
+    <img id="preloader" src='/assets/bars.svg'></img>
     <table>
       <tbody >
         <tr id="table">
-          <td><div id="chart1"></div>{this.determineOutcomes(1)}</td>
-          <td><div id="chart2"></div>{this.determineOutcomes(2)}</td>
-          <td><div id="chart3"></div>{this.determineOutcomes(3)}</td>
+          <td><div id="chart1"></div><div id="chart1F"></div>{this.determineOutcomes(1)}</td>
+          <td><div id="chart2"></div><div id="chart2F"></div>{this.determineOutcomes(2)}</td>
+          <td><div id="chart3"></div><div id="chart3F"></div>{this.determineOutcomes(3)}</td>
         </tr>
       </tbody>
     </table>
+    <a href id="refresh" onClick={this.reloadPage}>Back</a>
+    </div>
     )
     }
 },
@@ -50,21 +57,38 @@ result1: [],
 result2: [],
 result3: [],
 determineOutcomes: function(num) {
-  val = null
+  stdVal = null
   if (num == 1) {
-    val = this.result1[2]
+    stdVal = this.result1[2]
   } else if (num == 2) {
-    val = this.result2[2]
+    stdVal = this.result2[2]
   } else if (num == 3) {
-    val = this.result3[2]
+    stdVal = this.result3[2]
   }
 
-  if (val <= 1.0) {
-    return <div><img id="star" src="/assets/oneS.png"></img><br /><p id="sharpe">Sharpe Ratio {(Math.round(val * 100) / 100).toFixed(2)}</p></div>
-  } else if (val > 1.0 && val < 1.50) {
-    return <div><img id="star" src="/assets/twoS.png"></img><br /><p id="sharpe">Sharpe Ratio {(Math.round(val * 100) / 100).toFixed(2)}</p></div>
-  } else if (val >= 1.5) {
-    return <div><img id="star" src="/assets/threeS.png"></img><br /><p id="sharpe">Sharpe Ratio {(Math.round(val * 100) / 100).toFixed(2)}</p></div>
+  if (stdVal <= 1.0) {
+    return <div id="info-div">{this.determinePL(num)}<br /><p id="sharpe"><img id="star" className="1S" src="/assets/oneS.png"></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
+  } else if (stdVal > 1.0 && stdVal < 1.50) {
+    return <div id="info-div">{this.determinePL(num)}<br /><p id="sharpe"><img id="star" className="2S" src="/assets/twoS.png"></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
+  } else if (stdVal >= 1.5) {
+    return <div id="info-div">{this.determinePL(num)}<br /><p id="sharpe"><img id="star" className="3S" src="/assets/threeS.png"></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
+  }
+
+},
+determinePL: function(num) {
+  val = 0.0
+  if (num == 1) {
+    val = parseFloat(this.result1[0])
+  } else if (num == 2) {
+    val = parseFloat(this.result2[0])
+  } else if (num == 3) {
+    val = parseFloat(this.result3[0])
+  }
+
+  if (val >= 0.000000) {
+    return <p id="pl-p" className="green">{'+'+((Math.round(val * 10000) / 10000)*100).toFixed(2).toString()+'%'}</p>
+  } else if (val < 0.000000) {
+    return <p id="pl-p" className="red">{((Math.round(val * 10000) / 10000)*100).toFixed(2).toString()+'%'}</p>
   }
 
 },
@@ -76,7 +100,6 @@ computeSharpe: function(futureE,std,selection) {
   } else if (selection == 3) {
     this.result3.push(futureE,std,(Math.abs(futureE)/Math.abs(std)))
   }
-  console.log(Math.abs(futureE)/Math.abs(std))
 },
 keyPressed: function(event) {
   this.currentText = event.target.value.toUpperCase()
@@ -105,13 +128,15 @@ shapeOptions: function(seriesDict, colorArr, title) {
   chartOptions = {
     title: title,
     titlePosition: 'out',
-    titleTextStyle: {color: '#E7ECEA', fontName: 'Roboto', fontSize: 14},
+    titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', fontSize: 12},
     curveType: 'function',
     legend: { position: 'none' },
     animation: {duration: 1000, startup: 'true', easing: 'linear' },
     vAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
     hAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
     backgroundColor: 'transparent',
+    tooltip : {trigger: 'none'},
+    enableInteractivity: false,
     series: seriesDict,
     colors: colorArr,
     //chartArea: {backgroundColor: 'E7ECEA'},
@@ -121,6 +146,7 @@ shapeOptions: function(seriesDict, colorArr, title) {
   return chartOptions
 },
 buttonClick: function() {
+  document.getElementById('home-text').style.visibility = "hidden"
   this.showResults = true
   this.forceUpdate()
 
@@ -132,7 +158,6 @@ buttonClick: function() {
     success: function(data) {
 
       finalData = this.shapeData(data)
-      this.computeSharpe(data['future'][(data['future'].length - 1)] ,data['stDev'][(data['stDev'].length - 1)],1)
 
       seriesDict = {}
       colorArr = []
@@ -146,15 +171,54 @@ buttonClick: function() {
       colorArr.push('#FFFFFF')
       seriesDict[(finalData[0].length-2)] = { lineWidth: 2 }
 
-      chartOptions = this.shapeOptions(seriesDict, colorArr, 'DAY / WEEK')
+      chartOptions = this.shapeOptions(seriesDict, colorArr, 'DAILY / 2 WEEKS')
       chartData = google.visualization.arrayToDataTable(finalData)
 
       chart = new google.visualization.LineChart(document.getElementById('chart1'));
-      document.getElementById('home-text').style.visibility = 'hidden'
       chart.draw(chartData, chartOptions)
+
+      document.getElementById('preloader').style.visibility = 'hidden'
+
+      this.computeSharpe(data['future'][(data['future'].length - 1)] ,data['stDev'][(data['stDev'].length - 1)],1)
+
+      fData = []
+      for (i=0; i < data['future'].length; i++) {
+        fData.push([])
+        fData[i].push(i, data['future'][i])
+      }
+      headerArr = ['one','one']
+      fData.unshift(headerArr)
+
+      seriesDict = {}
+      colorArr = []
+      for (i = 0; i < data['future'].length; i++) {
+        seriesDict[i] = { lineWidth: 2 }
+        colorArr.push('#FFFFFF')
+      }
+
+      chartOptionsF = {
+        title: 'Future Performance',
+        titlePosition: 'out',
+        titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', fontSize: 12, bold: false},
+        curveType: 'function',
+        legend: { position: 'none' },
+        animation: {duration: 1000, startup: 'true', easing: 'linear' },
+        vAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
+        hAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
+        backgroundColor: 'transparent',
+        series: seriesDict,
+        colors: colorArr,
+        width: 300,
+        height: 100
+      };
+
+      chartDataF = google.visualization.arrayToDataTable(fData)
+      chart1F = new google.visualization.LineChart(document.getElementById('chart1F'));
+
+      chart1F.draw(chartDataF, chartOptionsF)
+
       this.forceUpdate()
     }.bind(this)  });
-
 
 
     $.ajax({
@@ -165,7 +229,6 @@ buttonClick: function() {
       success: function(data) {
 
         finalData = this.shapeData(data)
-        this.computeSharpe(data['future'][(data['future'].length - 1)],data['stDev'][(data['stDev'].length - 1)],2)
 
         seriesDict = {}
         colorArr = []
@@ -179,12 +242,51 @@ buttonClick: function() {
         colorArr.push('#FFFFFF')
         seriesDict[(finalData[0].length-2)] = { lineWidth: 2 }
 
-        chartOptions = this.shapeOptions(seriesDict, colorArr, 'HOURLY / 2 DAYS')
+        chartOptions = this.shapeOptions(seriesDict, colorArr, 'HOURLY / 24 HOURS')
         chartData = google.visualization.arrayToDataTable(finalData)
 
         chart2 = new google.visualization.LineChart(document.getElementById('chart2'));
-        document.getElementById('home-text').style.visibility = 'hidden'
         chart2.draw(chartData, chartOptions)
+
+        document.getElementById('preloader').style.visibility = 'hidden'
+
+        this.computeSharpe(data['future'][(data['future'].length - 1)],data['stDev'][(data['stDev'].length - 1)],2)
+
+        fData = []
+        for (i=0; i < data['future'].length; i++) {
+          fData.push([])
+          fData[i].push(i, data['future'][i])
+        }
+        headerArr = ['one','one']
+        fData.unshift(headerArr)
+
+        seriesDict = {}
+        colorArr = []
+        for (i = 0; i < data['future'].length; i++) {
+          seriesDict[i] = { lineWidth: 2 }
+          colorArr.push('#FFFFFF')
+        }
+
+        chartOptionsF = {
+          title: 'Future Performance',
+          titlePosition: 'out',
+          titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', fontSize: 12, bold: false},
+          curveType: 'function',
+          legend: { position: 'none' },
+          animation: {duration: 1000, startup: 'true', easing: 'linear' },
+          vAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
+          hAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
+          backgroundColor: 'transparent',
+          series: seriesDict,
+          colors: colorArr,
+          width: 300,
+          height: 100
+        };
+
+        chartDataF = google.visualization.arrayToDataTable(fData)
+        chart2F = new google.visualization.LineChart(document.getElementById('chart2F'));
+        chart2F.draw(chartDataF, chartOptionsF)
+
         this.forceUpdate()
       }.bind(this)  });
 
@@ -198,7 +300,6 @@ buttonClick: function() {
         success: function(data) {
 
           finalData = this.shapeData(data)
-          this.computeSharpe(data['future'][(data['future'].length - 1)],data['stDev'][(data['stDev'].length - 1)],3)
 
           seriesDict = {}
           colorArr = []
@@ -212,17 +313,53 @@ buttonClick: function() {
           colorArr.push('#FFFFFF')
           seriesDict[(finalData[0].length-2)] = { lineWidth: 2 }
 
-          chartOptions = this.shapeOptions(seriesDict, colorArr, '15 MIN / 3 HOURS')
+          chartOptions = this.shapeOptions(seriesDict, colorArr, '15 MIN / 6 HOURS')
           chartData = google.visualization.arrayToDataTable(finalData)
 
           chart3 = new google.visualization.LineChart(document.getElementById('chart3'));
-          document.getElementById('home-text').style.visibility = 'hidden'
           chart3.draw(chartData, chartOptions)
+
+          document.getElementById('preloader').style.visibility = 'hidden'
+
+          this.computeSharpe(data['future'][(data['future'].length - 1)],data['stDev'][(data['stDev'].length - 1)],3)
+
+          fData = []
+          for (i=0; i < data['future'].length; i++) {
+            fData.push([])
+            fData[i].push(i, data['future'][i])
+          }
+          headerArr = ['one','one']
+          fData.unshift(headerArr)
+
+          seriesDict = {}
+          colorArr = []
+          for (i = 0; i < data['future'].length; i++) {
+            seriesDict[i] = { lineWidth: 2 }
+            colorArr.push('#FFFFFF')
+          }
+
+          chartOptionsF = {
+            title: 'Future Performance',
+            titlePosition: 'out',
+            titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', fontSize: 12, bold: false},
+            curveType: 'function',
+            legend: { position: 'none' },
+            animation: {duration: 1000, startup: 'true', easing: 'linear' },
+            vAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
+            hAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
+            backgroundColor: 'transparent',
+            series: seriesDict,
+            colors: colorArr,
+            width: 300,
+            height: 100
+          };
+
+          chartDataF = google.visualization.arrayToDataTable(fData)
+          chart3F = new google.visualization.LineChart(document.getElementById('chart3F'));
+          chart3F.draw(chartDataF, chartOptionsF)
+
           this.forceUpdate()
         }.bind(this)  });
-
-
-
 
     //document.body.style.backgroundImage = 'url("/assets/secondBG.jpg")';
     //document.getElementById("logo").style.display = 'none';
