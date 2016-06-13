@@ -11,11 +11,7 @@ namespace :assets do
   task compile_environment: :webpack do
     Rake::Task["assets:environment"].invoke
   end
-
-  desc "Compile assets with webpack"
-  task :webpack do
-    sh "cd client && npm run build:client"
-  end
+  
 
   task :clobber do
     rm_r Dir.glob(Rails.root.join("app/assets/webpack/*"))
