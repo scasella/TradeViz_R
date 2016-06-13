@@ -39,15 +39,17 @@ renderLogic: function() {
       return (
     <div>
     <img id="preloader" src='/assets/bars.svg'></img>
+    <div id="all">
     <table>
       <tbody >
-        <tr id="table">
+        <tr>
           <td><div id="chart1"></div><div id="chart1F"></div>{this.determineOutcomes(1)}</td>
           <td><div id="chart2"></div><div id="chart2F"></div>{this.determineOutcomes(2)}</td>
           <td><div id="chart3"></div><div id="chart3F"></div>{this.determineOutcomes(3)}</td>
         </tr>
       </tbody>
     </table>
+    </div>
     <a href id="refresh" onClick={this.reloadPage}>Back</a>
     </div>
     )
@@ -56,6 +58,7 @@ renderLogic: function() {
 result1: [],
 result2: [],
 result3: [],
+counter: 0,
 determineOutcomes: function(num) {
   stdVal = null
   if (num == 1) {
@@ -131,7 +134,7 @@ shapeOptions: function(seriesDict, colorArr, title) {
     titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', fontSize: 12},
     curveType: 'function',
     legend: { position: 'none' },
-    animation: {duration: 1000, startup: 'true', easing: 'linear' },
+    animation: {duration: 2000, startup: 'true', easing: 'linear' },
     vAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
     hAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
     backgroundColor: 'transparent',
@@ -150,13 +153,20 @@ buttonClick: function() {
   this.showResults = true
   this.forceUpdate()
 
+  if (this.currentText.length < 6) {
   $.ajax({
     //data: formData,
     url: 'https://agile-wave-32875.herokuapp.com/'+this.currentText+'/1',
     type: "GET",
     dataType: "json",
+    error(xhr,status,error) {
+      window.location.reload(true)
+    },
     success: function(data) {
-
+      if (data['error'] == 'error') {
+        this.counter = this.counter + 1
+        return
+      }
       finalData = this.shapeData(data)
 
       seriesDict = {}
@@ -176,9 +186,6 @@ buttonClick: function() {
 
       chart = new google.visualization.LineChart(document.getElementById('chart1'));
       chart.draw(chartData, chartOptions)
-
-      document.getElementById('preloader').style.visibility = 'hidden'
-
       this.computeSharpe(data['future'][(data['future'].length - 1)] ,data['stDev'][(data['stDev'].length - 1)],1)
 
       fData = []
@@ -214,20 +221,34 @@ buttonClick: function() {
 
       chartDataF = google.visualization.arrayToDataTable(fData)
       chart1F = new google.visualization.LineChart(document.getElementById('chart1F'));
-
       chart1F.draw(chartDataF, chartOptionsF)
+      this.counter = this.counter + 1
+      if (this.counter == 3) {
+        document.getElementById('preloader').style.visibility = "hidden"
+        document.getElementById('all').style.visibility = "visible"
+      } else {
+        document.getElementById('all').style.visibility = "hidden"
+      }
 
       this.forceUpdate()
     }.bind(this)  });
-
+  } else {
+    this.counter = this.counter + 1
+  }
 
     $.ajax({
       //data: formData,
       url: 'https://agile-wave-32875.herokuapp.com/'+this.currentText+'/2',
       type: "GET",
       dataType: "json",
+      error(xhr,status,error) {
+        window.location.reload(true)
+      },
       success: function(data) {
-
+        if (data['error'] == 'error') {
+          this.counter = this.counter + 1
+          return
+        }
         finalData = this.shapeData(data)
 
         seriesDict = {}
@@ -247,9 +268,6 @@ buttonClick: function() {
 
         chart2 = new google.visualization.LineChart(document.getElementById('chart2'));
         chart2.draw(chartData, chartOptions)
-
-        document.getElementById('preloader').style.visibility = 'hidden'
-
         this.computeSharpe(data['future'][(data['future'].length - 1)],data['stDev'][(data['stDev'].length - 1)],2)
 
         fData = []
@@ -286,6 +304,13 @@ buttonClick: function() {
         chartDataF = google.visualization.arrayToDataTable(fData)
         chart2F = new google.visualization.LineChart(document.getElementById('chart2F'));
         chart2F.draw(chartDataF, chartOptionsF)
+        this.counter = this.counter + 1
+        if (this.counter == 3) {
+          document.getElementById('preloader').style.visibility = "hidden"
+          document.getElementById('all').style.visibility = "visible"
+        } else {
+          document.getElementById('all').style.visibility = "hidden"
+        }
 
         this.forceUpdate()
       }.bind(this)  });
@@ -297,8 +322,14 @@ buttonClick: function() {
         url: 'https://agile-wave-32875.herokuapp.com/'+this.currentText+'/3',
         type: "GET",
         dataType: "json",
+        error(xhr,status,error) {
+          window.location.reload(true)
+        },
         success: function(data) {
-
+          if (data['error'] == 'error') {
+            this.counter = this.counter + 1
+            return
+          }
           finalData = this.shapeData(data)
 
           seriesDict = {}
@@ -318,9 +349,6 @@ buttonClick: function() {
 
           chart3 = new google.visualization.LineChart(document.getElementById('chart3'));
           chart3.draw(chartData, chartOptions)
-
-          document.getElementById('preloader').style.visibility = 'hidden'
-
           this.computeSharpe(data['future'][(data['future'].length - 1)],data['stDev'][(data['stDev'].length - 1)],3)
 
           fData = []
@@ -357,6 +385,13 @@ buttonClick: function() {
           chartDataF = google.visualization.arrayToDataTable(fData)
           chart3F = new google.visualization.LineChart(document.getElementById('chart3F'));
           chart3F.draw(chartDataF, chartOptionsF)
+          this.counter = this.counter + 1
+          if (this.counter == 3) {
+            document.getElementById('preloader').style.visibility = "hidden"
+            document.getElementById('all').style.visibility = "visible"
+          } else {
+            document.getElementById('all').style.visibility = "hidden"
+          }
 
           this.forceUpdate()
         }.bind(this)  });

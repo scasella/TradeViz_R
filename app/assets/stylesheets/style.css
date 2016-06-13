@@ -1,10 +1,9 @@
 body {
+  background-color: black;
   background-image: url('/assets/bg.jpg');
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    font-family: 'Roboto', sans-serif;
+  background-repeat:no-repeat;
+  background-size:cover;
+  font-family: 'Roboto', sans-serif;
 }
 #logo {
   padding-top: 25px;
@@ -123,12 +122,15 @@ tr {
   color: white
 }
 #chart1, #chart2, #chart3  {
+
+  width: 350px;
+  margin: 0 auto;
   margin-top: -25px;
-  margin-left: 50px
 }
 #chart1F, #chart2F, #chart3F  {
   margin-top: -5px;
-  margin-left: 75px;
+  width: 300px;
+  margin: 0 auto;
 }
 #pl-p {
   display: inline;
@@ -150,14 +152,14 @@ tr {
   font-size: 10px;
 }
 #info-div {
-  margin-top: 20px;
   padding-top: 10px;
-  display: inline-block;
   background: url('/assets/field-home.png') no-repeat 0 0 transparent;
   background-position: center center;
   background-size: 150px 75px;
   height: 75px;
-  width: 150px
+  width: 150px;
+  margin: 0 auto;
+  margin-top: 20px;
 }
 /*#pl-p {
   padding: 0;
@@ -197,7 +199,7 @@ tr {
   left: 0;
   right: 0;
   color: white;
-  margin-top: 25px;
+  margin-top: 24px;
   z-index: 2;
 
 }
