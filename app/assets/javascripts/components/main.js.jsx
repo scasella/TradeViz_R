@@ -70,11 +70,11 @@ determineOutcomes: function(num) {
   }
 
   if (stdVal <= 1.0) {
-    return <div id="info-div">{this.determinePL(num)}<br /><p id="sharpe"><img id="star" className="1S" src="/assets/oneS.png"></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
+    return <div id="info-div">{this.determinePL(num)}<br /><p id="sharpe"><img id="star" className="oneStar" src="/assets/oneS.png"></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
   } else if (stdVal > 1.0 && stdVal < 1.50) {
-    return <div id="info-div">{this.determinePL(num)}<br /><p id="sharpe"><img id="star" className="2S" src="/assets/twoS.png"></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
+    return <div id="info-div">{this.determinePL(num)}<br /><p id="sharpe"><img id="star" className="twoStars" src="/assets/twoS.png"></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
   } else if (stdVal >= 1.5) {
-    return <div id="info-div">{this.determinePL(num)}<br /><p id="sharpe"><img id="star" className="3S" src="/assets/threeS.png"></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
+    return <div id="info-div">{this.determinePL(num)}<br /><p id="sharpe"><img id="star" className="threeStars" src="/assets/threeS.png"></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
   }
 
 },

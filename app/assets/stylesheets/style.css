@@ -178,15 +178,15 @@ tr {
 .red {
   color: #FF0000
 }
-.1S {
+.oneStar {
   height: 15px;
   width: 15px;
 }
-.2S {
+.twoStars {
   height: 15px;
   width: 30px;
 }
-.3S {
+.threeStars {
   height: 15px;
   width: 80px;
 }
