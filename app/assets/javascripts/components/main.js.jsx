@@ -26,7 +26,7 @@ renderLogic: function() {
     <div id="home-outline">
       <div>
         <div id='field-div'>
-          <input id="field-home" onChange={this.keyPressed} defaultValue="SPY" type='text' autoComplete="off"></input>
+          <input id="field-home" onClick={this.clickPressed} onChange={this.keyPressed}  onKeyPress={this.ePress} defaultValue="SPY" type='text' autoComplete="off"></input>
         </div>
           <button type='button' id="b-home" onClick={this.buttonClick}></button>
       </div>
@@ -59,6 +59,24 @@ result1: [],
 result2: [],
 result3: [],
 counter: 0,
+dataDict: {},
+createCharts: function() {
+  arr = ["chart1","chart1F","chart2","chart2F","chart3","chart3F"]
+
+  for (i=0; i < arr.length; i++) {
+    tempArr = this.dataDict[arr[i]]
+
+    if (tempArr[0] != 'error') {
+      chartData = tempArr[0]
+      chartOptions = tempArr[1]
+      chart = new google.visualization.LineChart(document.getElementById(arr[i]));
+      chart.draw(chartData, chartOptions)
+    }
+  }
+
+  this.forceUpdate()
+
+},
 determineOutcomes: function(num) {
   stdVal = null
   if (num == 1) {
@@ -106,6 +124,14 @@ computeSharpe: function(futureE,std,selection) {
 },
 keyPressed: function(event) {
   this.currentText = event.target.value.toUpperCase()
+},
+clickPressed: function(event) {
+  event.target.value = ""
+},
+ePress: function(event) {
+  if (event.key == "Enter") {
+    this.buttonClick()
+  }
 },
 shapeData: function(data) {
   GLOBAL_DATA = []
@@ -184,8 +210,8 @@ buttonClick: function() {
       chartOptions = this.shapeOptions(seriesDict, colorArr, 'DAILY / 2 WEEKS')
       chartData = google.visualization.arrayToDataTable(finalData)
 
-      chart = new google.visualization.LineChart(document.getElementById('chart1'));
-      chart.draw(chartData, chartOptions)
+      this.dataDict['chart1'] = [chartData,chartOptions]
+
       this.computeSharpe(data['future'][(data['future'].length - 1)] ,data['stDev'][(data['stDev'].length - 1)],1)
 
       fData = []
@@ -220,22 +246,16 @@ buttonClick: function() {
       };
 
       chartDataF = google.visualization.arrayToDataTable(fData)
-      chart1F = new google.visualization.LineChart(document.getElementById('chart1F'));
-      chart1F.draw(chartDataF, chartOptionsF)
+
+      this.dataDict['chart1F'] = [chartDataF,chartOptionsF]
+
       this.counter = this.counter + 1
       if (this.counter == 3) {
-        document.getElementById('preloader').style.visibility = "hidden"
-        document.getElementById('all').style.visibility = "visible"
-      } else {
-        document.getElementById('all').style.visibility = "hidden"
+          document.getElementById('preloader').style.visibility = "hidden"
+          this.createCharts()
       }
-
-      this.forceUpdate()
     }.bind(this)  });
-  } else {
-    this.counter = this.counter + 1
-  }
-
+}
     $.ajax({
       //data: formData,
       url: 'https://agile-wave-32875.herokuapp.com/'+this.currentText+'/2',
@@ -266,8 +286,8 @@ buttonClick: function() {
         chartOptions = this.shapeOptions(seriesDict, colorArr, 'HOURLY / 24 HOURS')
         chartData = google.visualization.arrayToDataTable(finalData)
 
-        chart2 = new google.visualization.LineChart(document.getElementById('chart2'));
-        chart2.draw(chartData, chartOptions)
+        this.dataDict['chart2'] = [chartData,chartOptions]
+
         this.computeSharpe(data['future'][(data['future'].length - 1)],data['stDev'][(data['stDev'].length - 1)],2)
 
         fData = []
@@ -302,17 +322,14 @@ buttonClick: function() {
         };
 
         chartDataF = google.visualization.arrayToDataTable(fData)
-        chart2F = new google.visualization.LineChart(document.getElementById('chart2F'));
-        chart2F.draw(chartDataF, chartOptionsF)
+
+        this.dataDict['chart2F'] = [chartDataF,chartOptionsF]
+
         this.counter = this.counter + 1
         if (this.counter == 3) {
           document.getElementById('preloader').style.visibility = "hidden"
-          document.getElementById('all').style.visibility = "visible"
-        } else {
-          document.getElementById('all').style.visibility = "hidden"
+          this.createCharts()
         }
-
-        this.forceUpdate()
       }.bind(this)  });
 
 
@@ -347,8 +364,8 @@ buttonClick: function() {
           chartOptions = this.shapeOptions(seriesDict, colorArr, '15 MIN / 6 HOURS')
           chartData = google.visualization.arrayToDataTable(finalData)
 
-          chart3 = new google.visualization.LineChart(document.getElementById('chart3'));
-          chart3.draw(chartData, chartOptions)
+          this.dataDict['chart3'] = [chartData,chartOptions]
+
           this.computeSharpe(data['future'][(data['future'].length - 1)],data['stDev'][(data['stDev'].length - 1)],3)
 
           fData = []
@@ -383,17 +400,14 @@ buttonClick: function() {
           };
 
           chartDataF = google.visualization.arrayToDataTable(fData)
-          chart3F = new google.visualization.LineChart(document.getElementById('chart3F'));
-          chart3F.draw(chartDataF, chartOptionsF)
+
+          this.dataDict['chart3F'] = [chartDataF,chartOptionsF]
+
           this.counter = this.counter + 1
           if (this.counter == 3) {
             document.getElementById('preloader').style.visibility = "hidden"
-            document.getElementById('all').style.visibility = "visible"
-          } else {
-            document.getElementById('all').style.visibility = "hidden"
+            this.createCharts()
           }
-
-          this.forceUpdate()
         }.bind(this)  });
 
     //document.body.style.backgroundImage = 'url("/assets/secondBG.jpg")';
