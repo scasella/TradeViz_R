@@ -73,7 +73,7 @@ body {
   background: url('/assets/home-text.png') no-repeat 0 0 transparent;
   background-size: 100%;
   margin-top: 50px;
-  min-width: 350px;
+  min-width: 275px;
   position: absolute;
   margin-left: auto;
   margin-right: auto;
@@ -198,7 +198,13 @@ tr {
   left: 0;
   right: 0;
   color: white;
-  margin-top: 24px;
+  bottom: 10%;
   z-index: 2;
-
+}
+#dButton {
+  position: absolute;
+  right: 1%;
+  bottom: 2%;
+  visibility: hidden;
+  z-index: 2
 }

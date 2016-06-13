@@ -12,13 +12,13 @@ render: function() {
   <div>
     <div id="secondary-bg">
       {this.renderLogic()}
-      <div id="home-text"></div>
+      <div id="home-text" alt="Match your stock's chart pattern to historical patterns, visualize the outcomes, and trade with the odds on your side."></div>
     </div>
   </div>
   )
 },
 reloadPage: function() {
-  window.location.reload(true);
+  window.location.reload();
 },
 renderLogic: function() {
   if (this.showResults == false) {
@@ -38,19 +38,26 @@ renderLogic: function() {
     } else {
       return (
     <div>
-    <img id="preloader" src='/assets/bars.svg'></img>
-    <div id="all">
-    <table>
-      <tbody >
-        <tr>
-          <td><div id="chart1"></div><div id="chart1F"></div>{this.determineOutcomes(1)}</td>
-          <td><div id="chart2"></div><div id="chart2F"></div>{this.determineOutcomes(2)}</td>
-          <td><div id="chart3"></div><div id="chart3F"></div>{this.determineOutcomes(3)}</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-    <a href id="refresh" onClick={this.reloadPage}>Back</a>
+      <img id="preloader" src='/assets/bars.svg'></img>
+      <div id="all">
+        <table>
+          <tbody >
+            <tr>
+              <td id="tdOne"><div id="chart1"></div><div id="chart1F"></div>{this.determineOutcomes(1)}</td>
+              <td><div id="chart2"></div><div id="chart2F"></div>{this.determineOutcomes(2)}</td>
+              <td><div id="chart3"></div><div id="chart3F"></div>{this.determineOutcomes(3)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <a href id="refresh" onClick={this.reloadPage}>Back</a>
+      <form id="dButton" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <input type="hidden" name="cmd" value="_s-xclick" />
+        <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+        " />
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
+        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></img>
+      </form>
     </div>
     )
     }
@@ -60,22 +67,35 @@ result2: [],
 result3: [],
 counter: 0,
 dataDict: {},
+onlyTwo: false,
 createCharts: function() {
-  arr = ["chart1","chart1F","chart2","chart2F","chart3","chart3F"]
+  arr = ["chart3","chart3F","chart2","chart2F","chart1","chart1F"]
+  if (this.onlyTwo == false) {
+    for (i=0; i < arr.length; i++) {
+      tempArr = this.dataDict[arr[i]]
 
-  for (i=0; i < arr.length; i++) {
-    tempArr = this.dataDict[arr[i]]
-
-    if (tempArr[0] != 'error') {
-      chartData = tempArr[0]
-      chartOptions = tempArr[1]
-      chart = new google.visualization.LineChart(document.getElementById(arr[i]));
-      chart.draw(chartData, chartOptions)
+      if (tempArr[0] != 'error') {
+        chartData = tempArr[0]
+        chartOptions = tempArr[1]
+        chart = new google.visualization.LineChart(document.getElementById(arr[i]));
+        chart.draw(chartData, chartOptions)
+      }
     }
+  } else {
+    for (i=0; i < 4; i++) {
+      tempArr = this.dataDict[arr[i]]
+
+      if (tempArr[0] != 'error') {
+        chartData = tempArr[0]
+        chartOptions = tempArr[1]
+        chart = new google.visualization.LineChart(document.getElementById(arr[i]));
+        chart.draw(chartData, chartOptions)
+      }
+    }
+    document.getElementById('tdOne').style.visibility = "hidden"
   }
-
+  document.getElementById('dButton').style.visibility = "visible"
   this.forceUpdate()
-
 },
 determineOutcomes: function(num) {
   stdVal = null
@@ -180,89 +200,92 @@ buttonClick: function() {
   this.forceUpdate()
 
   if (this.currentText.length < 6) {
-  $.ajax({
-    //data: formData,
-    url: 'https://agile-wave-32875.herokuapp.com/'+this.currentText+'/1',
-    type: "GET",
-    dataType: "json",
-    error(xhr,status,error) {
-      window.location.reload(true)
-    },
-    success: function(data) {
-      if (data['error'] == 'error') {
-        this.counter = this.counter + 1
-        return
-      }
-      finalData = this.shapeData(data)
+    $.ajax({
+      //data: formData,
+      url: 'https://agile-wave-32875.herokuapp.com/'+this.currentText+'/1',
+      type: "GET",
+      dataType: "json",
+      error(xhr,status,error) {
+        window.location.reload()
+      },
+      success: function(data) {
+        if (data['error'] == 'error') {
+          this.counter = this.counter + 1
+          return
+        }
+        finalData = this.shapeData(data)
 
-      seriesDict = {}
-      colorArr = []
-      for (i = 0; i < finalData[0].length; i++) {
-        seriesDict[i] = { lineWidth: 1 }
-        colorArr.push('#47B0C4')
-      }
-      colorArr.pop()
-      colorArr.pop()
-      colorArr.push('#FFFFFF')
-      colorArr.push('#FFFFFF')
-      seriesDict[(finalData[0].length-2)] = { lineWidth: 2 }
-
-      chartOptions = this.shapeOptions(seriesDict, colorArr, 'DAILY / 2 WEEKS')
-      chartData = google.visualization.arrayToDataTable(finalData)
-
-      this.dataDict['chart1'] = [chartData,chartOptions]
-
-      this.computeSharpe(data['future'][(data['future'].length - 1)] ,data['stDev'][(data['stDev'].length - 1)],1)
-
-      fData = []
-      for (i=0; i < data['future'].length; i++) {
-        fData.push([])
-        fData[i].push(i, data['future'][i])
-      }
-      headerArr = ['one','one']
-      fData.unshift(headerArr)
-
-      seriesDict = {}
-      colorArr = []
-      for (i = 0; i < data['future'].length; i++) {
-        seriesDict[i] = { lineWidth: 2 }
+        seriesDict = {}
+        colorArr = []
+        for (i = 0; i < finalData[0].length; i++) {
+          seriesDict[i] = { lineWidth: 1 }
+          colorArr.push('#47B0C4')
+        }
+        colorArr.pop()
+        colorArr.pop()
         colorArr.push('#FFFFFF')
-      }
+        colorArr.push('#FFFFFF')
+        seriesDict[(finalData[0].length-2)] = { lineWidth: 2 }
 
-      chartOptionsF = {
-        title: 'Future Performance',
-        titlePosition: 'out',
-        titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', fontSize: 12, bold: false},
-        curveType: 'function',
-        legend: { position: 'none' },
-        animation: {duration: 1000, startup: 'true', easing: 'linear' },
-        vAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
-        hAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
-        backgroundColor: 'transparent',
-        series: seriesDict,
-        colors: colorArr,
-        width: 300,
-        height: 100
-      };
+        chartOptions = this.shapeOptions(seriesDict, colorArr, 'DAILY / 2 WEEKS')
+        chartData = google.visualization.arrayToDataTable(finalData)
 
-      chartDataF = google.visualization.arrayToDataTable(fData)
+        this.dataDict['chart1'] = [chartData,chartOptions]
 
-      this.dataDict['chart1F'] = [chartDataF,chartOptionsF]
+        this.computeSharpe(data['future'][(data['future'].length - 1)] ,data['stDev'][(data['stDev'].length - 1)],1)
 
+        fData = []
+        for (i=0; i < data['future'].length; i++) {
+          fData.push([])
+          fData[i].push(i, data['future'][i])
+        }
+        headerArr = ['one','one']
+        fData.unshift(headerArr)
+
+        seriesDict = {}
+        colorArr = []
+        for (i = 0; i < data['future'].length; i++) {
+          seriesDict[i] = { lineWidth: 2 }
+          colorArr.push('#FFFFFF')
+        }
+
+        chartOptionsF = {
+          title: 'Future Performance',
+          titlePosition: 'out',
+          titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', fontSize: 12, bold: false},
+          curveType: 'function',
+          legend: { position: 'none' },
+          animation: {duration: 1000, startup: 'true', easing: 'linear' },
+          vAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
+          hAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
+          backgroundColor: 'transparent',
+          series: seriesDict,
+          colors: colorArr,
+          width: 300,
+          height: 100
+        };
+
+        chartDataF = google.visualization.arrayToDataTable(fData)
+
+        this.dataDict['chart1F'] = [chartDataF,chartOptionsF]
+
+        this.counter = this.counter + 1
+        if (this.counter == 3) {
+            document.getElementById('preloader').style.visibility = "hidden"
+            this.createCharts()
+        }
+      }.bind(this)  });
+    } else {
+      this.onlyTwo = true
       this.counter = this.counter + 1
-      if (this.counter == 3) {
-          document.getElementById('preloader').style.visibility = "hidden"
-          this.createCharts()
-      }
-    }.bind(this)  });
-}
+    }
     $.ajax({
       //data: formData,
       url: 'https://agile-wave-32875.herokuapp.com/'+this.currentText+'/2',
       type: "GET",
       dataType: "json",
       error(xhr,status,error) {
-        window.location.reload(true)
+        window.location.reload()
       },
       success: function(data) {
         if (data['error'] == 'error') {
@@ -340,7 +363,7 @@ buttonClick: function() {
         type: "GET",
         dataType: "json",
         error(xhr,status,error) {
-          window.location.reload(true)
+          window.location.reload()
         },
         success: function(data) {
           if (data['error'] == 'error') {
