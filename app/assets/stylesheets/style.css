@@ -1,5 +1,5 @@
 body {
-  background-image: image-url('bg.jpg');
+  background-image: url('/assets/bg.jpg');
   background-repeat:no-repeat;
   background-size:cover;
   font-family: 'Roboto', sans-serif;
@@ -27,21 +27,21 @@ body {
   width: 60px;
   height: 60px;
   top: 18px;
-  background: image-url('button.png') no-repeat scroll 0 0 transparent;
+  background: url('/assets/button.png') no-repeat scroll 0 0 transparent;
   background-size: 100%;
   border: 0px
 }
 #b-home:hover {
   width: 60px;
   height: 60px;
-  background: image-url('button-hover.png') no-repeat scroll 0 0 transparent;
+  background: url('/assets/button-hover.png') no-repeat scroll 0 0 transparent;
   background-size: 100%;
   border: 0px
 }
 
 #field-div {
   display: inline-block;
-  background: image-url('field-home.png') no-repeat 0 0 transparent;
+  background: url('/assets/field-home.png') no-repeat 0 0 transparent;
   background-position: left center;
   background-size: 160px 70px;
   width:175px;
@@ -70,7 +70,7 @@ body {
   width: 60%;
   display: block;
   height: 80px;
-  background: image-url('home-text.png') no-repeat 0 0 transparent;
+  background: url('/assets/home-text.png') no-repeat 0 0 transparent;
   background-size: 100%;
   margin-top: 50px;
   min-width: 450px;
@@ -152,7 +152,7 @@ tr {
 }
 #info-div {
   padding-top: 10px;
-  background: image-url('field-home.png') no-repeat 0 0 transparent;
+  background: url('/assets/field-home.png') no-repeat 0 0 transparent;
   background-position: center center;
   background-size: 150px 75px;
   height: 75px;
