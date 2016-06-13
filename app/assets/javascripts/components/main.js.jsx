@@ -38,7 +38,7 @@ renderLogic: function() {
     } else {
       return (
     <div>
-    <img id="preloader" src={"<%= asset_url('/images/bars.svg') %>"}></img>
+    <img id="preloader" src='/assets/bars.svg'></img>
     <div id="all">
     <table>
       <tbody >
