@@ -6,6 +6,16 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-70908023-2', 'auto');
+  ga('send', 'pageview');
+
+  </script>
   <%= csrf_meta_tags %>
   <meta charset="UTF-8">
   <meta name="description" content="Match your forex or stock chart pattern to historical chart patterns, visualize the results, and trade with the odds on your side.">
@@ -18,8 +28,16 @@
 
   <%= yield %>
 
+  <form id="dButton" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+    <input type="hidden" name="cmd" value="_s-xclick" />
+    <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+    " />
+
+    </form>
+
+
   <div id="bottom-links">
-    <p class="link"><a class="link" href=#>ABOUT</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="link" href=#>DISCLAIMER</a></p>
+    <p class="link"><a class="link" href=#>ABOUT</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="link" href=#>DISCLAIMER</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="link" href=# onClick="document.forms[0].submit()">DONATE</a></p>
   </div>
 </body>
 </html>

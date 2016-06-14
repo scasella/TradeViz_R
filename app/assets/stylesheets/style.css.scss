@@ -1,7 +1,9 @@
 body {
-  background: url('/assets/bg.jpg');
-  background-repeat:no-repeat;
-  background-size:cover;
+  background: url('/assets/bg.jpg') no-repeat fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   font-family: 'Roboto', sans-serif;
 }
 #logo {
