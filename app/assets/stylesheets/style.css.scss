@@ -69,11 +69,9 @@ body {
 }
 #home-text {
   margin: auto;
-  width: 60%;
+  width: 75%;
   display: block;
   height: 65px;
-  background: url('/assets/home-text.png') no-repeat 0 0 transparent;
-  background-size: 100%;
   margin-top: 50px;
   min-width: 275px;
   position: absolute;
@@ -81,7 +79,11 @@ body {
   margin-right: auto;
   left: 0;
   right: 0;
-  bottom: 22%
+  bottom: 22%;
+  font-size: 24px;
+  color: #E7ECEA;
+  text-align: center;
+  font-weight: medium
 }
 #bottom-links {
   position: absolute;
@@ -126,7 +128,7 @@ tr {
 
   width: 350px;
   margin: 0 auto;
-  margin-top: -25px;
+  margin-top: -30px;
 }
 #chart1F, #chart2F, #chart3F  {
   margin-top: -5px;
@@ -193,6 +195,7 @@ tr {
 }
 #refresh {
   font-weight: bold;
+  font-size: 16px;
   position: absolute;
   margin-left: auto;
   margin-right: auto;
@@ -200,7 +203,7 @@ tr {
   left: 0;
   right: 0;
   color: white;
-  bottom: 10%;
+  bottom: 13%;
   z-index: 2;
 }
 #dButton {
@@ -209,4 +212,14 @@ tr {
   bottom: 2%;
   visibility: hidden;
   z-index: 2
+}
+#tButton {
+  position:absolute;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  left: 0;
+  right: 0;
+  bottom: 8%;
+  z-index: 2;
 }
