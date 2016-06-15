@@ -54,6 +54,7 @@ body {
   color: #E7ECEA;
   text-align: center;
   font-size: 28px;
+  font-weight: bold;
   outline: none;
   border: none;
   background:transparent;
@@ -79,8 +80,8 @@ body {
   margin-right: auto;
   left: 0;
   right: 0;
-  margin-top: 200px;
-  font-size: 24px;
+  bottom: 30%;
+  font-size: 26px;
   color: #E7ECEA;
   text-align: center;
   font-weight: medium
@@ -128,7 +129,7 @@ tr {
 
   width: 350px;
   margin: 0 auto;
-  margin-top: -20px;
+  margin-top: -28px;
 }
 #chart1F, #chart2F, #chart3F  {
   margin-top: -5px;
