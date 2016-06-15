@@ -50,7 +50,7 @@ renderLogic: function() {
           </tbody>
         </table>
       </div>
-      <a href id="refresh" onClick={this.reloadPage}>Back</a>
+      <a href id="refresh" onClick={this.reloadPage}>BACK</a>
     </div>
     )
     }
