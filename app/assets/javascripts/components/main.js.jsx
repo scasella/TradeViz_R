@@ -4,12 +4,24 @@ getInitialState: function() {
   }
 },
 componentDidMount: function() {
+  this.fetchQuotes()
+  setInterval(this.fetchQuotes, 10000)
 },
 currentText: "SPY",
 showResults: false,
 render: function() {
+
   return (
   <div>
+    <div id="quoteTable">
+      <table>
+        <tbody>
+
+              {this.renderQuotes()}
+
+        </tbody>
+      </table>
+    </div>
     <div id="secondary-bg">
       {this.renderLogic()}
       <div id="home-text">Match your stock's chart pattern to over 5,305,608 historical patterns, visualize the outcomes, and trade with the odds on your side.</div>
@@ -55,12 +67,74 @@ renderLogic: function() {
     )
     }
 },
+//interval: setInterval(this.fetchQuotes, 10000),
 result1: [],
 result2: [],
 result3: [],
 counter: 0,
 dataDict: {},
 onlyTwo: false,
+quotes: [],
+renderOK: false,
+fetchQuotes: function() {
+  this.quotes = []
+  arr = ['SPY','TLT','AAPL','GOOGL','AMZN','NFLX','BAC','JPM','MCD','TSLA','VRX','MCD','NKE','INTC','MSFT',
+  'XLE','XLF','QQQ','FB','VZ','GE','BA','HD','DIS','JNJ']
+
+  for (i = 0; i < arr.length; i++) {
+    var ind = i
+    const url = "http://query.yahooapis.com/v1/public/yql";
+    const symbol = arr[i]
+    const data = encodeURIComponent("select * from yahoo.finance.quotes where symbol in ('" + symbol + "')");
+
+    $.getJSON(url, 'q=' + data + "&format=json&diagnostics=true&env=http://datatables.org/alltables.env")
+    .done(function (data) {
+      sym = data.query.results.quote.symbol
+      name = data.query.results.quote.Name
+      change = data.query.results.quote.PercentChange
+      this.quotes.push([sym,name,change])
+      if (this.quotes.length == arr.length) {
+          console.log("test")
+          this.renderOK = true
+          this.forceUpdate()
+      }
+    }.bind(this))
+  }
+},
+renderQuotes: function() {
+  if (this.renderOK == true) {
+    qArrCopy = this.quotes
+
+    one = qArrCopy[Math.floor(Math.random()*qArrCopy.length)]
+    ind = qArrCopy.indexOf(one)
+    qArrCopy.splice(ind,1)
+
+    two = qArrCopy[Math.floor(Math.random()*qArrCopy.length)]
+    ind = qArrCopy.indexOf(two)
+    qArrCopy.splice(ind,1)
+
+    test = [Math.floor(Math.random()*qArrCopy.length)]
+    three = qArrCopy[test]
+
+    return (
+      <tr>
+        <td id="tdTwo">{this.formatQuote(one[0],one[2],one[1])}</td>
+        <td id="tdTwo">{this.formatQuote(two[0],two[2],two[1])}</td>
+        <td id="tdTwo">{this.formatQuote(three[0],three[2],three[1])}</td>
+      </tr>
+    )
+  } else {
+    return
+  }
+},
+formatQuote: function(sym,change,name) {
+
+  if (change.charAt(0) == '-') {
+    return <div id="quoteDiv"><p id="quotePar">{sym}{"\u00a0"}{"\u00a0"}</p><p id="redChange">{change}</p><br /><p id="namePar">{name}</p></div>
+  } else {
+    return <div id="quoteDiv"><p id="quotePar">{sym}</p> <p id="greenChange">{change}</p><br /><p id="namePar">{name}</p></div>
+  }
+},
 createCharts: function() {
   arr = ["chart3","chart3F","chart2","chart2F","chart1","chart1F"]
   if (this.onlyTwo == false) {
@@ -188,6 +262,7 @@ shapeOptions: function(seriesDict, colorArr, title) {
   return chartOptions
 },
 buttonClick: function() {
+  //clearInterval(this.interval)
   document.getElementById('home-text').style.visibility = "hidden"
   this.showResults = true
   this.forceUpdate()
