@@ -9,8 +9,8 @@ body {
 #logo {
   padding-top: 25px;
   padding-left: 25px;
-  height: 95px;
-  width: 218px
+  height: 100px;
+  width: 220px
 }
 #home-outline {
   margin: auto;
@@ -94,17 +94,6 @@ body {
   right: 0;
   bottom: 2%;
 }
-.link {
-  margin-top: 20%;
-  font-family: 'Roboto', sans-serif;
-  font-size: 12px;
-  color: #E7ECEA
-}
-.link:hover {
-  font-family: 'Roboto', sans-serif;
-  font-size: 12px;
-  color: #E7ECEA
-}
 #preloader {
   margin-top: 150px;
   position: absolute;
@@ -128,7 +117,7 @@ tr {
 
   width: 350px;
   margin: 0 auto;
-  margin-top: -28px;
+  margin-top: -55px;
 }
 #chart1F, #chart2F, #chart3F  {
   margin-top: -5px;
@@ -195,7 +184,7 @@ tr {
 }
 #refresh {
   font-weight: bold;
-  font-size: 12px;
+  font-size: 16px;
   position: absolute;
   margin-left: auto;
   margin-right: auto;
@@ -232,14 +221,9 @@ tr {
   bottom: 8%;
   z-index: 2;
 }
-#quotePar {
-  display: inline;
-  font-size: 18px;
-  font-weight: bold;
-}
 #namePar {
   display: inline;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: normal;
 }
 #greenChange {
@@ -256,4 +240,18 @@ tr {
 }
 #quoteDiv {
   display: inline
+}
+#quotePar {
+  font-size: 18px;
+}
+a,a:link,a:visited,a:active,#quotePar{
+  cursor:pointer;
+  margin-top: 20%;
+  display: inline;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+  color:#E7ECEA;
+}
+a:hover,#quotePar:hover,a.link:hover {
+  color: #409fb6
 }

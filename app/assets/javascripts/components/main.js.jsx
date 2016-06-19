@@ -7,18 +7,24 @@ componentDidMount: function() {
   this.fetchQuotes()
   setInterval(this.fetchQuotes, 10000)
 },
+//interval: setInterval(this.fetchQuotes, 10000),
+result1: [],
+result2: [],
+result3: [],
 currentText: "SPY",
 showResults: false,
+counter: 0,
+dataDict: {},
+onlyTwo: false,
+quotes: [],
+renderOK: false,
 render: function() {
-
   return (
   <div>
     <div id="quoteTable">
       <table>
         <tbody>
-
-              {this.renderQuotes()}
-
+          {this.renderQuotes()}
         </tbody>
       </table>
     </div>
@@ -28,9 +34,6 @@ render: function() {
     </div>
   </div>
   )
-},
-reloadPage: function() {
-  window.location.reload();
 },
 renderLogic: function() {
   if (this.showResults == false) {
@@ -62,20 +65,15 @@ renderLogic: function() {
           </tbody>
         </table>
       </div>
-      <a href id="refresh" onClick={this.reloadPage}>BACK</a>
+      <a href="http://www.tradeviz.com" id="refresh">BACK</a>
     </div>
     )
     }
 },
-//interval: setInterval(this.fetchQuotes, 10000),
-result1: [],
-result2: [],
-result3: [],
-counter: 0,
-dataDict: {},
-onlyTwo: false,
-quotes: [],
-renderOK: false,
+quoteClick: function(event) {
+  this.currentText = event.target.value
+  this.buttonClick()
+},
 fetchQuotes: function() {
   this.quotes = []
   arr = ['SPY','TLT','AAPL','GOOGL','AMZN','NFLX','BAC','JPM','MCD','TSLA','VRX','MCD','NKE','INTC','MSFT',
@@ -128,11 +126,10 @@ renderQuotes: function() {
   }
 },
 formatQuote: function(sym,change,name) {
-
   if (change.charAt(0) == '-') {
-    return <div id="quoteDiv"><p id="quotePar">{sym}{"\u00a0"}{"\u00a0"}</p><p id="redChange">{change}</p><br /><p id="namePar">{name}</p></div>
+    return <div id="quoteDiv"><a onClick={this.quoteClick} value={sym} id="quotePar">{sym}</a>{"\u00a0"}{"\u00a0"}<p id="redChange">{change}</p><br /><p id="namePar">{name}</p></div>
   } else {
-    return <div id="quoteDiv"><p id="quotePar">{sym}</p> <p id="greenChange">{change}</p><br /><p id="namePar">{name}</p></div>
+    return <div id="quoteDiv"><a onClick={this.quoteClick} value={sym} id="quotePar">{sym}</a>{"\u00a0"}{"\u00a0"}<p id="greenChange">{change}</p><br /><p id="namePar">{name}</p></div>
   }
 },
 createCharts: function() {
