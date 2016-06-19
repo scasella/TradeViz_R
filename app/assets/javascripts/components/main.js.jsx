@@ -65,10 +65,13 @@ renderLogic: function() {
           </tbody>
         </table>
       </div>
-      <a href="http://www.tradeviz.com" id="refresh">BACK</a>
+      <a onClick={this.reloadPage} id="refresh">BACK</a>
     </div>
     )
     }
+},
+reloadPage: function() {
+  location.reload(true)
 },
 quoteClick: function(event) {
   this.currentText = event.target.value
