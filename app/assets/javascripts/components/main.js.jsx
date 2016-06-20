@@ -65,6 +65,7 @@ renderLogic: function() {
           </tbody>
         </table>
       </div>
+
       <a onClick={this.reloadPage} id="refresh">BACK</a>
     </div>
     )

@@ -55,7 +55,7 @@ body {
   color: #E7ECEA;
   text-align: center;
   font-size: 28px;
-  font-weight: medium;
+  font-weight: bold;
   outline: none;
   border: none;
   background:transparent;
@@ -98,7 +98,7 @@ body {
 }
 .link {
   font-weight: normal;
-  font-size: 10px;
+  font-size: 12px;
 }
 #preloader {
   margin-top: 75px;
@@ -234,13 +234,13 @@ tr {
 }
 #greenChange {
   display: inline;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   color: #00B233
 }
 #redChange {
   display: inline;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   color: #FF0000
 }
@@ -248,7 +248,7 @@ tr {
   display: inline
 }
 #quotePar {
-  font-size: 14px;
+  font-size: 16px;
 }
 a,a:link,a:visited,a:active,#quotePar{
   cursor:pointer;
