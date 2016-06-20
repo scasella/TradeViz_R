@@ -9,8 +9,8 @@ body {
 #logo {
   padding-top: 25px;
   padding-left: 25px;
-  height: 100px;
-  width: 220px
+  height: 75px;
+  width: 160px
 }
 #home-outline {
   margin: auto;
@@ -21,7 +21,7 @@ body {
   border: 1px solid #BBBBBB;
   border-radius: 15px;
   text-align: center;
-  margin-top: 100px;
+  margin-top: 55px;
   min-width: 300px
 }
 #b-home {
@@ -54,7 +54,7 @@ body {
   color: #E7ECEA;
   text-align: center;
   font-size: 28px;
-  font-weight: bold;
+  font-weight: medium;
   outline: none;
   border: none;
   background:transparent;
@@ -73,17 +73,18 @@ body {
   width: 75%;
   display: block;
   height: 65px;
-  margin-top: 100px;
+  margin-top: 50px;
   min-width: 275px;
   position: absolute;
   margin-left: auto;
   margin-right: auto;
   left: 0;
   right: 0;
-  font-size: 26px;
+  font-size: 20px;
   color: #E7ECEA;
   text-align: center;
-  font-weight: medium
+  font-weight: normal;
+   letter-spacing: 2px;
 }
 #bottom-links {
   position: absolute;
@@ -92,7 +93,11 @@ body {
   text-align: center;
   left: 0;
   right: 0;
-  bottom: 2%;
+  bottom: 1%;
+}
+.link {
+  font-weight: normal;
+  font-size: 10px;
 }
 #preloader {
   margin-top: 150px;
@@ -114,10 +119,9 @@ tr {
   color: white
 }
 #chart1, #chart2, #chart3  {
-
   width: 350px;
   margin: 0 auto;
-  margin-top: -40px;
+  margin-top: -55px;
 }
 #chart1F, #chart2F, #chart3F  {
   margin-top: -5px;
@@ -183,7 +187,7 @@ tr {
   width: 40px;
 }
 #refresh {
-  font-weight: bold;
+  font-weight: medium;
   font-size: 16px;
   position: absolute;
   margin-left: auto;
@@ -192,7 +196,7 @@ tr {
   left: 0;
   right: 0;
   color: white;
-  bottom: 13%;
+  bottom: 7%;
   z-index: 2;
 }
 #dButton {
@@ -204,7 +208,8 @@ tr {
 }
 #quoteTable {
   margin: 0 auto;
-  width: 750px
+  width: 750px;
+  margin-top: -30px
 }
 #tdTwo {
   font-family: 'Roboto', sans-serif;
@@ -223,18 +228,18 @@ tr {
 }
 #namePar {
   display: inline;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: normal;
 }
 #greenChange {
   display: inline;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: bold;
   color: #00B233
 }
 #redChange {
   display: inline;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: bold;
   color: #FF0000
 }
@@ -242,7 +247,7 @@ tr {
   display: inline
 }
 #quotePar {
-  font-size: 18px;
+  font-size: 14px;
 }
 a,a:link,a:visited,a:active,#quotePar{
   cursor:pointer;
@@ -252,6 +257,6 @@ a,a:link,a:visited,a:active,#quotePar{
   font-family: 'Roboto', sans-serif;
   color:#E7ECEA;
 }
-a:hover,#quotePar:hover,a.link:hover {
+a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
   color: #409fb6
 }
