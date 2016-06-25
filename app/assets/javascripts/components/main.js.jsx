@@ -65,6 +65,7 @@ renderLogic: function() {
           </tbody>
         </table>
       </div>
+      <a onClick={this.reloadPage} id="refresh">BACK</a>
     </div>
     )
     }
@@ -261,7 +262,6 @@ shapeOptions: function(seriesDict, colorArr, title) {
   return chartOptions
 },
 buttonClick: function() {
-  document.getElementById('refresh').style.visibility = "visible"
   //clearInterval(this.interval)
   document.getElementById('home-text').style.visibility = "hidden"
   this.showResults = true
