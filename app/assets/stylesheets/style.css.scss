@@ -9,8 +9,8 @@ body {
 #logo {
   padding-top: 25px;
   padding-left: 15px;
-  height: 80px;
-  width: 165px;
+  height: 82px;
+  width: 167px;
 
 }
 #home-outline {
@@ -150,7 +150,7 @@ tr {
 }
 #info-div {
   padding-top: 10px;
-  background: url('/assets/field-home.png') no-repeat 0 0 transparent;
+  background: url('/assets/resultsBox.png') no-repeat 0 0 transparent;
   background-position: center center;
   background-size: 150px 75px;
   height: 75px;
@@ -158,17 +158,6 @@ tr {
   margin: 0 auto;
   margin-top: 20px;
 }
-/*#pl-p {
-  padding: 0;
-  font-family: 'Roboto', sans-serif;
-  font-size: 18px;
-  font-weight: medium;
-  line-height: 43px;
-  width: 100px;
-  height: 100px;
-  background: url('/assets/field-home.png') no-repeat 0 0 transparent;
-  background-size: 100px, 100px;
-}*/
 .green {
   color: #00B233
 }
@@ -199,14 +188,6 @@ tr {
   color: white;
   bottom: 7%;
   z-index: 2;
-  visibility: hidden
-}
-#dButton {
-  position: absolute;
-  right: 1%;
-  bottom: 2%;
-  visibility: hidden;
-  z-index: 2
 }
 #quoteTable {
   margin: 0 auto;
@@ -261,4 +242,7 @@ a,a:link,a:visited,a:active,#quotePar{
 }
 a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
   color: #409fb6
+}
+#tdOne, #tdTw, #tdTh {
+  visibility: hidden;
 }
