@@ -248,11 +248,12 @@ a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
   visibility: hidden;
 }
 #chart1H, #chart2H, #chart3H {
-  width: 450px;
+  display: inline;
+  width: 150px;
   height: 125px;
   margin: 0 auto;
   margin-top: 20px;
-  margin-left: 75px;
+  margin-left: 10px;
 }
 #pl-pH {
   position: relative;;
@@ -277,3 +278,7 @@ a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
   margin-left: 5px;
   top: 128px
 }
+.home-div {
+  display: inline;
+}
+
