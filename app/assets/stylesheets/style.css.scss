@@ -113,6 +113,7 @@ table {
   margin-top: 75px;
   position: relative;
   width: 100%;
+  text-align:center 
 }
 tr {
   align: center;
@@ -247,16 +248,15 @@ a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
   visibility: hidden;
 }
 #chart1H, #chart2H, #chart3H {
-  position: relative;
-  margin: 0 auto;
-  left: 60px;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: -20px;
 }
 #pl-pH {
   position: relative;;
   font-size: 16px;
   font-weight: bold;
-  left: 20px;
+  margin-left: 5px;
   top: 120px;
   cursor:pointer;
   z-index: 2;
@@ -265,13 +265,13 @@ a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
   position: relative;
   font-size: 9px;
   font-style: normal;
-  left: 20px;
+  margin-left: 5px;
   top: 93px
 }
 #captionH {
   position: relative;
   font-size: 9px;
   font-style: normal;
-  left: 20px;
+  margin-left: 5px;
   top: 128px
 }
