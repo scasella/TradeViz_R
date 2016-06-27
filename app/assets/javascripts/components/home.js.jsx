@@ -21,9 +21,9 @@ render: function() {
         <table>
           <tbody >
             <tr>
-              <td id="hOne"><div id="chart1H">{this.determineOutcomes(1)}</div></td>
-              <td id="hTw"><div id="chart2H">{this.determineOutcomes(2)}</div></td>
-              <td id="hTh"><div id="chart3H">{this.determineOutcomes(3)}</div></td>
+              <td id="hOne"><div id="chart1H"></div>{this.determineOutcomes(1)}</td>
+              <td id="hTw"><div id="chart2H"></div>{this.determineOutcomes(2)}</td>
+              <td id="hTh"><div id="chart3H"></div>{this.determineOutcomes(3)}</td>
             </tr>
           </tbody>
         </table>
