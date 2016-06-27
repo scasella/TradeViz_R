@@ -5,6 +5,7 @@ body {
   -o-background-size: cover;
   background-size: cover;
   font-family: 'Roboto', sans-serif;
+  text-shadow: 0px 0px 1px #1F1F1F;
 }
 #logo {
   padding-top: 25px;
@@ -22,14 +23,14 @@ body {
   border: 1px solid #BBBBBB;
   border-radius: 15px;
   text-align: center;
-  margin-top: 55px;
+  margin-top: 45px;
   min-width: 300px
 }
 #b-home {
   position: relative;
   width: 60px;
   height: 60px;
-  top: 20px;
+  top: 19px;
   background: url('/assets/button.png') no-repeat scroll 0 0 transparent;
   background-size: 100%;
   border: 0px
@@ -59,7 +60,7 @@ body {
   outline: none;
   border: none;
   background:transparent;
-  margin-right: 12px;
+  margin-right: 5px;
   margin-top: 11px;
   width:140px;/*full width - grey on the side - 2*10px padding*/
   text-transform: uppercase;
@@ -74,17 +75,17 @@ body {
   width: 75%;
   display: block;
   height: 65px;
-  margin-top: 50px;
+  margin-top: 40px;
   min-width: 275px;
   position: absolute;
   margin-left: auto;
   margin-right: auto;
   left: 0;
   right: 0;
-  font-size: 20px;
+  font-size: 22px;
   color: #E7ECEA;
   text-align: center;
-  font-weight: normal;
+  font-weight: medium;
    letter-spacing: 2px;
 }
 #bottom-links {
@@ -97,8 +98,8 @@ body {
   bottom: 1%;
 }
 .link {
-  font-weight: normal;
-  font-size: 12px;
+  font-weight: lighter;
+  font-size: 11px;
 }
 #preloader {
   margin-top: 75px;
@@ -113,7 +114,7 @@ table {
   margin-top: 75px;
   position: relative;
   width: 100%;
-  text-align:center 
+  text-align:center
 }
 tr {
   align: center;
@@ -193,7 +194,7 @@ tr {
 #quoteTable {
   margin: 0 auto;
   width: 750px;
-  margin-top: -50px
+  margin-top: -65px
 }
 #tdTwo {
   font-family: 'Roboto', sans-serif;
@@ -253,7 +254,7 @@ a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
   width: 150px;
   height: 125px;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: 52px;
 }
 #pl-pH {
   margin: 0 auto;
@@ -265,15 +266,27 @@ a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
 }
 #sharpeH {
   font-size: 9px;
-  font-style: normal;
+  font-weight: bold;
   margin: 0 auto;
   margin-left: 5px;
   margin-top: 2px;
 }
 #captionH {
   font-size: 9px;
-  font-style: normal;
+  font-weight: bold;
   margin: 0 auto;
   margin-left: 5px;
 }
-
+#about-div {
+  margin: 0 auto;
+  margin-top: 25px;
+  width: 60%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  color: #FFFFFF;
+  text-shadow: 0px 0px 1px #1F1F1F;
+  text-align: justify;
+}
+.about-p {
+  text-indent: 40px
+}

@@ -4,6 +4,12 @@ class RecordsController < ApplicationController
     @records = Record.all
   end
 
+  def about
+  end
+
+  def disclaimer
+  end
+
   def create
     @record = Record.new(record_params)
 
