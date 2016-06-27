@@ -77,11 +77,11 @@ determineOutcomes: function(num) {
   }
 
   if (stdVal < 0.75) {
-    return <div id="home-div"><p id="captionH">Avg. Future Performance</p>{this.determinePL(num)}<br /><p id="sharpeH"><img id="star" className="oneStar" src='/assets/oneS.png'></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
+    return <div className="home-div"><p id="captionH">Avg. Future Performance</p>{this.determinePL(num)}<br /><p id="sharpeH"><img id="star" className="oneStar" src='/assets/oneS.png'></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
   } else if (stdVal >= 0.75 && stdVal < 1.00) {
-    return <div id="home-div"><p id="captionH">Avg. Future Performance</p>{this.determinePL(num)}<br /><p id="sharpeH"><img id="star" className="twoStars" src='/assets/twoS.png'></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
+    return <div className="home-div"><p id="captionH">Avg. Future Performance</p>{this.determinePL(num)}<br /><p id="sharpeH"><img id="star" className="twoStars" src='/assets/twoS.png'></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
   } else if (stdVal >= 1.00) {
-    return <div id="home-div"><p id="captionH">Avg. Future Performance</p>{this.determinePL(num)}<br /><p id="sharpeH"><img id="star" className="threeStars" src='/assets/threeS.png'></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
+    return <div className="home-div"><p id="captionH">Avg. Future Performance</p>{this.determinePL(num)}<br /><p id="sharpeH"><img id="star" className="threeStars" src='/assets/threeS.png'></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
   }
 
 },
