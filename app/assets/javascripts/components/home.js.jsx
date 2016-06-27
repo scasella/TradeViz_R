@@ -4,20 +4,29 @@ getInitialState: function() {
   }
 },
 componentDidMount: function() {
+  setTimeout(this.loadCharts, 2500)
 },
 //interval: setInterval(this.fetchQuotes, 10000),
 result1: [],
 result2: [],
 result3: [],
 currentText: "SPY",
-showResults: false,
-counter: 0,
-dataDict: {},
+dataDict: [],
+resultSymbols: [],
 render: function() {
   return (
   <div>
       {this.renderLogic()}
       <div id="home-text">Match your stock's chart pattern to over 5,305,608 historical patterns, visualize the outcomes, and trade with the odds on your side.</div>
+        <table>
+          <tbody >
+            <tr>
+              <td id="hOne"><div id="chart1H">{this.determineOutcomes(1)}</div></td>
+              <td id="hTw"><div id="chart2H">{this.determineOutcomes(2)}</div></td>
+              <td id="hTh"><div id="chart3H">{this.determineOutcomes(3)}</div></td>
+            </tr>
+          </tbody>
+        </table>
   </div>
   )
 },
@@ -43,32 +52,18 @@ reloadPage: function() {
   location.reload(true)
 },
 createCharts: function() {
-  arr = ["chart3","chart3F","chart2","chart2F","chart1","chart1F"]
-  if (this.onlyTwo == false) {
-    for (i=0; i < arr.length; i++) {
-      tempArr = this.dataDict[arr[i]]
+  arr = ["chart3H","chart2H","chart1H"]
+    for (i=0; i < 3; i++) {
+      tempArr = this.dataDict[i]
 
-      if (tempArr[0] != 'error') {
-        chartData = tempArr[0]
-        chartOptions = tempArr[1]
-        chart = new google.visualization.LineChart(document.getElementById(arr[i]));
-        chart.draw(chartData, chartOptions)
-      }
+      chartData = tempArr[0]
+      chartOptions = tempArr[1]
+      chart = new google.visualization.LineChart(document.getElementById(arr[i]));
+      chart.draw(chartData, chartOptions)
     }
-  } else {
-    for (i=0; i < 4; i++) {
-      tempArr = this.dataDict[arr[i]]
-
-      if (tempArr[0] != 'error') {
-        chartData = tempArr[0]
-        chartOptions = tempArr[1]
-        chart = new google.visualization.LineChart(document.getElementById(arr[i]));
-        chart.draw(chartData, chartOptions)
-      }
-    }
-    document.getElementById('tdOne').style.visibility = "hidden"
-  }
-  document.getElementById('dButton').style.visibility = "visible"
+  document.getElementById('hOne').style.visibility = "visible"
+  document.getElementById('hTw').style.visibility = "visible"
+  document.getElementById('hTh').style.visibility = "visible"
   this.forceUpdate()
 },
 determineOutcomes: function(num) {
@@ -81,12 +76,12 @@ determineOutcomes: function(num) {
     stdVal = this.result3[2]
   }
 
-  if (stdVal <= 1.0) {
-    return <div id="info-div">{this.determinePL(num)}<br /><p id="sharpe"><img id="star" className="oneStar" src='/assets/oneS.png'></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
-  } else if (stdVal > 1.0 && stdVal < 1.50) {
-    return <div id="info-div">{this.determinePL(num)}<br /><p id="sharpe"><img id="star" className="twoStars" src='/assets/twoS.png'></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
-  } else if (stdVal >= 1.5) {
-    return <div id="info-div">{this.determinePL(num)}<br /><p id="sharpe"><img id="star" className="threeStars" src='/assets/threeS.png'></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
+  if (stdVal < 0.75) {
+    return <div id="home-div"><p id="captionH">Avg. Future Performance</p>{this.determinePL(num)}<br /><p id="sharpeH"><img id="star" className="oneStar" src='/assets/oneS.png'></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
+  } else if (stdVal >= 0.75 && stdVal < 1.00) {
+    return <div id="home-div"><p id="captionH">Avg. Future Performance</p>{this.determinePL(num)}<br /><p id="sharpeH"><img id="star" className="twoStars" src='/assets/twoS.png'></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
+  } else if (stdVal >= 1.00) {
+    return <div id="home-div"><p id="captionH">Avg. Future Performance</p>{this.determinePL(num)}<br /><p id="sharpeH"><img id="star" className="threeStars" src='/assets/threeS.png'></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
   }
 
 },
@@ -101,11 +96,14 @@ determinePL: function(num) {
   }
 
   if (val >= 0.000000) {
-    return <p id="pl-p" className="green">{'+'+((Math.round(val * 10000) / 10000)*100).toFixed(2).toString()+'%'}</p>
+    return <p id="pl-pH" value={(num-1)} onClick={this.plClicked} className="green">{'+'+((Math.round(val * 10000) / 10000)*100).toFixed(2).toString()+'%'}</p>
   } else if (val < 0.000000) {
-    return <p id="pl-p" className="red">{((Math.round(val * 10000) / 10000)*100).toFixed(2).toString()+'%'}</p>
+    return <p id="pl-pH" value={(num-1)} onClick={this.plClicked} className="red">{((Math.round(val * 10000) / 10000)*100).toFixed(2).toString()+'%'}</p>
   }
 
+},
+plClicked: function(event) {
+  this.props.pressed(this.resultSymbols[event.target.value])
 },
 computeSharpe: function(futureE,std,selection) {
   if (selection == 1) {
@@ -163,249 +161,65 @@ shapeOptions: function(seriesDict, colorArr, title) {
     series: seriesDict,
     colors: colorArr,
     //chartArea: {backgroundColor: 'E7ECEA'},
-    width: 350,
-    height: 250
+    width: 175,
+    height: 125
   };
   return chartOptions
 },
-buttonClick: function() {
-  //clearInterval(this.interval)
-  document.getElementById('home-text').style.visibility = "hidden"
-  this.showResults = true
-  this.forceUpdate()
-
-  if (this.currentText.length < 6) {
+loadCharts: function() {
     $.ajax({
       //data: formData,
-      url: 'https://agile-wave-32875.herokuapp.com/'+this.currentText+'/1',
+      url: 'https://agile-wave-32875.herokuapp.com/best',
       type: "GET",
       dataType: "json",
       error(xhr,status,error) {
-        window.location.reload()
+        //window.location.reload()
       },
       success: function(data) {
-        if (data['error'] == 'error') {
-          this.counter = this.counter + 1
-          return
-        }
-        finalData = this.shapeData(data)
-
-        seriesDict = {}
-        colorArr = []
-        for (i = 0; i < finalData[0].length; i++) {
-          seriesDict[i] = { lineWidth: 1 }
-          colorArr.push('#47B0C4')
-        }
-        colorArr.pop()
-        colorArr.pop()
-        colorArr.push('#FFFFFF')
-        colorArr.push('#FFFFFF')
-        seriesDict[(finalData[0].length-2)] = { lineWidth: 2 }
-
-        chartOptions = this.shapeOptions(seriesDict, colorArr, 'DAILY / 2 WEEKS')
-        chartData = google.visualization.arrayToDataTable(finalData)
-
-        this.dataDict['chart1'] = [chartData,chartOptions]
-
-        this.computeSharpe(data['future'][(data['future'].length - 1)] ,data['stDev'][(data['stDev'].length - 1)],1)
-
-        fData = []
-        for (i=0; i < data['future'].length; i++) {
-          fData.push([])
-          fData[i].push(i, data['future'][i])
-        }
-        headerArr = ['one','one']
-        fData.unshift(headerArr)
-
-        seriesDict = {}
-        colorArr = []
-        for (i = 0; i < data['future'].length; i++) {
-          seriesDict[i] = { lineWidth: 2 }
-          colorArr.push('#FFFFFF')
-        }
-
-        chartOptionsF = {
-          title: 'Future Performance',
-          titlePosition: 'out',
-          titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', fontSize: 12, bold: false},
-          curveType: 'function',
-          legend: { position: 'none' },
-          animation: {duration: 1000, startup: 'true', easing: 'linear' },
-          vAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
-          hAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
-          backgroundColor: 'transparent',
-          series: seriesDict,
-          colors: colorArr,
-          width: 300,
-          height: 100
-        };
-
-        chartDataF = google.visualization.arrayToDataTable(fData)
-
-        this.dataDict['chart1F'] = [chartDataF,chartOptionsF]
-
-        this.counter = this.counter + 1
-        if (this.counter == 3) {
-            document.getElementById('preloader').style.visibility = "hidden"
-            this.createCharts()
-        }
+        this.dataHandler(data)
       }.bind(this)  });
-    } else {
-      this.onlyTwo = true
-      this.counter = this.counter + 1
+},
+shuffleArray: function(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
     }
-    $.ajax({
-      //data: formData,
-      url: 'https://agile-wave-32875.herokuapp.com/'+this.currentText+'/2',
-      type: "GET",
-      dataType: "json",
-      error(xhr,status,error) {
-        window.location.reload()
-      },
-      success: function(data) {
-        if (data['error'] == 'error') {
-          this.counter = this.counter + 1
-          return
-        }
-        finalData = this.shapeData(data)
+    return array;
+},
+dataHandler: function(data) {
 
-        seriesDict = {}
-        colorArr = []
-        for (i = 0; i < finalData[0].length; i++) {
-          seriesDict[i] = { lineWidth: 1 }
-          colorArr.push('#47B0C4')
-        }
-        colorArr.pop()
-        colorArr.pop()
-        colorArr.push('#FFFFFF')
-        colorArr.push('#FFFFFF')
-        seriesDict[(finalData[0].length-2)] = { lineWidth: 2 }
+  newData = this.shuffleArray(data)
+  for (count=0; count < 3; count++) {
 
-        chartOptions = this.shapeOptions(seriesDict, colorArr, 'HOURLY / 24 HOURS')
-        chartData = google.visualization.arrayToDataTable(finalData)
-
-        this.dataDict['chart2'] = [chartData,chartOptions]
-
-        this.computeSharpe(data['future'][(data['future'].length - 1)],data['stDev'][(data['stDev'].length - 1)],2)
-
-        fData = []
-        for (i=0; i < data['future'].length; i++) {
-          fData.push([])
-          fData[i].push(i, data['future'][i])
-        }
-        headerArr = ['one','one']
-        fData.unshift(headerArr)
-
-        seriesDict = {}
-        colorArr = []
-        for (i = 0; i < data['future'].length; i++) {
-          seriesDict[i] = { lineWidth: 2 }
-          colorArr.push('#FFFFFF')
-        }
-
-        chartOptionsF = {
-          title: 'Future Performance',
-          titlePosition: 'out',
-          titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', fontSize: 12, bold: false},
-          curveType: 'function',
-          legend: { position: 'none' },
-          animation: {duration: 1000, startup: 'true', easing: 'linear' },
-          vAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
-          hAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
-          backgroundColor: 'transparent',
-          series: seriesDict,
-          colors: colorArr,
-          width: 300,
-          height: 100
-        };
-
-        chartDataF = google.visualization.arrayToDataTable(fData)
-
-        this.dataDict['chart2F'] = [chartDataF,chartOptionsF]
-
-        this.counter = this.counter + 1
-        if (this.counter == 3) {
-          document.getElementById('preloader').style.visibility = "hidden"
-          this.createCharts()
-        }
-      }.bind(this)  });
-
-
-
-      $.ajax({
-        //data: formData,
-        url: 'https://agile-wave-32875.herokuapp.com/'+this.currentText+'/3',
-        type: "GET",
-        dataType: "json",
-        error(xhr,status,error) {
-          window.location.reload()
-        },
-        success: function(data) {
-          if (data['error'] == 'error') {
-            this.counter = this.counter + 1
-            return
-          }
-          finalData = this.shapeData(data)
-
-          seriesDict = {}
-          colorArr = []
-          for (i = 0; i < finalData[0].length; i++) {
-            seriesDict[i] = { lineWidth: 1 }
-            colorArr.push('#47B0C4')
-          }
-          colorArr.pop()
-          colorArr.pop()
-          colorArr.push('#FFFFFF')
-          colorArr.push('#FFFFFF')
-          seriesDict[(finalData[0].length-2)] = { lineWidth: 2 }
-
-          chartOptions = this.shapeOptions(seriesDict, colorArr, '15 MIN / 6 HOURS')
-          chartData = google.visualization.arrayToDataTable(finalData)
-
-          this.dataDict['chart3'] = [chartData,chartOptions]
-
-          this.computeSharpe(data['future'][(data['future'].length - 1)],data['stDev'][(data['stDev'].length - 1)],3)
-
-          fData = []
-          for (i=0; i < data['future'].length; i++) {
-            fData.push([])
-            fData[i].push(i, data['future'][i])
-          }
-          headerArr = ['one','one']
-          fData.unshift(headerArr)
-
-          seriesDict = {}
-          colorArr = []
-          for (i = 0; i < data['future'].length; i++) {
-            seriesDict[i] = { lineWidth: 2 }
-            colorArr.push('#FFFFFF')
-          }
-
-          chartOptionsF = {
-            title: 'Future Performance',
-            titlePosition: 'out',
-            titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', fontSize: 12, bold: false},
-            curveType: 'function',
-            legend: { position: 'none' },
-            animation: {duration: 1000, startup: 'true', easing: 'linear' },
-            vAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
-            hAxis: {baselineColor: 'white', textStyle: { color: 'white'}},
-            backgroundColor: 'transparent',
-            series: seriesDict,
-            colors: colorArr,
-            width: 300,
-            height: 100
-          };
-
-          chartDataF = google.visualization.arrayToDataTable(fData)
-
-          this.dataDict['chart3F'] = [chartDataF,chartOptionsF]
-
-          this.counter = this.counter + 1
-          if (this.counter == 3) {
-            document.getElementById('preloader').style.visibility = "hidden"
-            this.createCharts()
-          }
-        }.bind(this)  });
+    dataR = newData[count]
+    this.resultSymbols.push(newData[count]['symbol'])
+    finalData = this.shapeData(dataR)
+    //Set line colors
+    seriesDict = {}
+    colorArr = []
+    for (i = 0; i < finalData[0].length; i++) {
+      seriesDict[i] = { lineWidth: 1 }
+      colorArr.push('#47B0C4')
     }
+    colorArr.pop()
+    colorArr.pop()
+    colorArr.push('#FFFFFF')
+    colorArr.push('#FFFFFF')
+    seriesDict[(finalData[0].length-2)] = { lineWidth: 2 }
+    chartOptions = this.shapeOptions(seriesDict, colorArr, dataR['symbol'])
+
+    chartData = google.visualization.arrayToDataTable(finalData)
+
+    this.dataDict.push([chartData,chartOptions])
+
+    this.computeSharpe(dataR['future'][(dataR['future'].length - 1)] ,dataR['stDev'][(dataR['stDev'].length - 1)],count+1)
+
+    if (count==2) {
+      this.createCharts()
+    }
+
+  }
+}
 })

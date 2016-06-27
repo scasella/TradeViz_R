@@ -85,11 +85,11 @@ determineOutcomes: function(num) {
     stdVal = this.result3[2]
   }
 
-  if (stdVal <= 1.0) {
+  if (stdVal < 0.75) {
     return <div id="info-div">{this.determinePL(num)}<br /><p id="sharpe"><img id="star" className="oneStar" src='/assets/oneS.png'></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
-  } else if (stdVal > 1.0 && stdVal < 1.50) {
+  } else if (stdVal >= 0.75 && stdVal < 1.00) {
     return <div id="info-div">{this.determinePL(num)}<br /><p id="sharpe"><img id="star" className="twoStars" src='/assets/twoS.png'></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
-  } else if (stdVal >= 1.5) {
+  } else if (stdVal >= 1.00) {
     return <div id="info-div">{this.determinePL(num)}<br /><p id="sharpe"><img id="star" className="threeStars" src='/assets/threeS.png'></img>Sharpe Ratio: {(Math.round(stdVal * 100) / 100).toFixed(2)}</p></div>
   }
 
