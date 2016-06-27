@@ -248,8 +248,9 @@ a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
   visibility: hidden;
 }
 #chart1H, #chart2H, #chart3H {
-  margin-left: auto;
-  margin-right: auto;
+  width: 175px;
+  height: 125px;
+  margin: 0 auto;
   margin-top: -20px;
 }
 #pl-pH {
