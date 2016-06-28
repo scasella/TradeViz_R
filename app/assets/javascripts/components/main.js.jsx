@@ -6,7 +6,7 @@ getInitialState: function() {
 componentDidMount: function() {
   this.fetchQuotes()
   setInterval(this.fetchQuotes, 60000)
-  setInterval(this.forceUpdate(), 8000)
+  setInterval(this.handleUpdate, 8000)
 },
 showHome: true,
 currentText: "",
@@ -55,27 +55,36 @@ quoteClick: function(event) {
 },
 fetchQuotes: function() {
   this.quotes = []
-  arr = ['SPY','TLT','AAPL','GOOGL','AMZN','NFLX','BAC','JPM','MCD','TSLA','VRX','MCD','NKE','INTC','MSFT',
-  'XLE','XLF','QQQ','FB','VZ','GE','BA','HD','DIS','JNJ']
+  arr = ['SPY','TLT','AAPL','GOOGL','AMZN','NFLX','BAC','JPM','MCD','TSLA','MCD','NKE','MSFT',
+  'XLE','XLF','QQQ','FB','VZ','GE','BA','HD','DIS','JNJ','GS','PCLN','MS','TJX','M','SBUX','XOM','V','MA',
+  'XLU','IBM','INTC','XLV','XLI','IYR','XLY','EEM','FXI','GLD','SLV','GDX','FXE','UUP','HYG','SMH']
 
   for (i = 0; i < arr.length; i++) {
-    var ind = i
-    const url = "http://query.yahooapis.com/v1/public/yql";
-    const symbol = arr[i]
-    const data = encodeURIComponent("select * from yahoo.finance.quotes where symbol in ('" + symbol + "')");
+    try {
+      var ind = i
+      const url = "http://query.yahooapis.com/v1/public/yql";
+      const symbol = arr[i]
+      const data = encodeURIComponent("select * from yahoo.finance.quotes where symbol in ('" + symbol + "')");
 
-    $.getJSON(url, 'q=' + data + "&format=json&diagnostics=true&env=http://datatables.org/alltables.env")
-    .done(function (data) {
-      sym = data.query.results.quote.symbol
-      name = data.query.results.quote.Name
-      change = data.query.results.quote.PercentChange
-      this.quotes.push([sym,name,change])
-      if (this.quotes.length == arr.length) {
-          this.renderOK = true
-          this.forceUpdate()
-      }
-    }.bind(this))
-  }
+      $.getJSON(url, 'q=' + data + "&format=json&env=http://datatables.org/alltables.env")
+      .done(function (data) {
+        sym = data.query.results.quote.symbol
+        name = data.query.results.quote.Name
+        change = data.query.results.quote.PercentChange
+        this.quotes.push([sym,name,change])
+        if (this.quotes.length == arr.length) {
+            this.renderOK = true
+            this.forceUpdate()
+        }
+      }.bind(this))
+    }
+    catch(err) {
+      continue
+    }
+    }
+},
+handleUpdate: function() {
+  this.forceUpdate()
 },
 renderQuotes: function() {
   if (this.renderOK == true) {
