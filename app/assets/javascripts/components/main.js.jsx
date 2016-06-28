@@ -5,11 +5,13 @@ getInitialState: function() {
 },
 componentDidMount: function() {
   this.fetchQuotes()
-  setInterval(this.fetchQuotes, 6000)
+  setInterval(this.fetchQuotes, 60000)
+  setInterval(this.forceUpdate(), 8000)
 },
 showHome: true,
 currentText: "",
 renderOk: false,
+quotes: [],
 render: function() {
   return (
     <div>
