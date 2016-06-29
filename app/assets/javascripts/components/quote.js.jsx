@@ -215,7 +215,7 @@ buttonClick: function() {
         }
 
         chartOptionsF = {
-          title: 'Future Performance',
+          title: 'Average Return',
           titlePosition: 'out',
           titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', fontSize: 12, bold: false},
           curveType: 'function',
