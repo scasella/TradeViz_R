@@ -59,29 +59,28 @@ fetchQuotes: function() {
   'XLE','XLF','QQQ','FB','VZ','GE','BA','HD','DIS','JNJ','GS','PCLN','MS','TJX','M','SBUX','XOM','V','MA',
   'XLU','IBM','INTC','XLV','XLI','IYR','XLY','EEM','FXI','GLD','SLV','GDX','FXE','UUP','HYG','SMH']
 
+  str = ""
   for (i = 0; i < arr.length; i++) {
-    try {
-      var ind = i
-      const url = "http://query.yahooapis.com/v1/public/yql";
-      const symbol = arr[i]
-      const data = encodeURIComponent("select * from yahoo.finance.quotes where symbol in ('" + symbol + "')");
-
+      if (i == arr.length -1) {
+        str = str + arr[i]
+      } else {
+        str = str + arr[i]+","
+      }
+    }
+    const url = "http://query.yahooapis.com/v1/public/yql";
+    const data = encodeURIComponent("select * from yahoo.finance.quotes where symbol in ('" + str + "')");
       $.getJSON(url, 'q=' + data + "&format=json&env=http://datatables.org/alltables.env")
       .done(function (data) {
-        sym = data.query.results.quote.symbol
-        name = data.query.results.quote.Name
-        change = data.query.results.quote.PercentChange
-        this.quotes.push([sym,name,change])
-        if (this.quotes.length == arr.length) {
-            this.renderOK = true
-            this.forceUpdate()
+        temp = data.query.results.quote
+        for (val = 0; val < temp.length; val++) {
+          sym = temp[val].symbol
+          name = temp[val].Name
+          change = temp[val].PercentChange
+          this.quotes.push([sym,name,change])
         }
+          this.renderOK = true
+          this.forceUpdate()
       }.bind(this))
-    }
-    catch(err) {
-      continue
-    }
-    }
 },
 handleUpdate: function() {
   this.forceUpdate()
