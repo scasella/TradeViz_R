@@ -67,9 +67,9 @@ fetchQuotes: function() {
     success: function(data) {
       access = data.list.resources
       for (i = 0; i < access.length; i++) {
-        sym = access[i].fields.symbol
-        name = access[i].fields.issuer_name
-        change = access[i].fields.chg_percent
+        sym = access[i].resource.fields.symbol
+        name = access[i].resource.fields.issuer_name
+        change = access[i].resource.fields.chg_percent
         this.quotes.push([sym,name,change])
       }
       this.renderOK = true
@@ -106,10 +106,11 @@ renderQuotes: function() {
   }
 },
 formatQuote: function(sym,change,name) {
+  tempChg = ((Math.round(parseFloat(change) * 100))/100)
   if (change.charAt(0) == '-') {
-    return <div id="quoteDiv"><a onClick={this.quoteClick} value={sym} id="quotePar">{sym}</a>{"\u00a0"}{"\u00a0"}<p id="redChange">{change}</p><br /><p id="namePar">{name}</p></div>
+    return <div id="quoteDiv"><a onClick={this.quoteClick} value={sym} id="quotePar">{sym}</a>{"\u00a0"}{"\u00a0"}<p id="redChange">{tempChg+"%"}</p><br /><p id="namePar">{name}</p></div>
   } else {
-    return <div id="quoteDiv"><a onClick={this.quoteClick} value={sym} id="quotePar">{sym}</a>{"\u00a0"}{"\u00a0"}<p id="greenChange">{change}</p><br /><p id="namePar">{name}</p></div>
+    return <div id="quoteDiv"><a onClick={this.quoteClick} value={sym} id="quotePar">{sym}</a>{"\u00a0"}{"\u00a0"}<p id="greenChange">{"+"+tempChg+"%"}</p><br /><p id="namePar">{name}</p></div>
   }
 },
 
