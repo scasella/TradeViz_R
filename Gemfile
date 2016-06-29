@@ -41,6 +41,8 @@ gem 'react-rails', '~> 1.0'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 
+gem 'httparty'
+
 gem 'bundler', '>= 1.8.4'
 
 group :development, :test do

@@ -55,32 +55,26 @@ quoteClick: function(event) {
 },
 fetchQuotes: function() {
   this.quotes = []
-  arr = ['SPY','TLT','AAPL','GOOGL','AMZN','NFLX','BAC','JPM','MCD','TSLA','MCD','NKE','MSFT',
-  'XLE','XLF','QQQ','FB','VZ','GE','BA','HD','DIS','JNJ','GS','PCLN','MS','TJX','M','SBUX','XOM','V','MA',
-  'XLU','IBM','INTC','XLV','XLI','IYR','XLY','EEM','FXI','GLD','SLV','GDX','FXE','UUP','HYG','SMH']
 
-  str = ""
-  for (i = 0; i < arr.length; i++) {
-      if (i == arr.length -1) {
-        str = str + arr[i]
-      } else {
-        str = str + arr[i]+","
+  $.ajax({
+    //data: formData,
+    url: 'https://agile-wave-32875.herokuapp.com/quotes',
+    type: "GET",
+    dataType: "json",
+    error(xhr,status,error) {
+      console.log("Quote fetch error")
+    },
+    success: function(data) {
+      access = data.list.resources
+      for (i = 0; i < access.length; i++) {
+        sym = access[i].fields.symbol
+        name = access[i].fields.issuer_name
+        change = access[i].fields.chg_percent
+        this.quotes.push([sym,name,change])
       }
-    }
-    const url = "http://query.yahooapis.com/v1/public/yql";
-    const data = encodeURIComponent("select * from yahoo.finance.quotes where symbol in ('" + str + "')");
-      $.getJSON(url, 'q=' + data + "&format=json&env=http://datatables.org/alltables.env")
-      .done(function (data) {
-        temp = data.query.results.quote
-        for (val = 0; val < temp.length; val++) {
-          sym = temp[val].symbol
-          name = temp[val].Name
-          change = temp[val].PercentChange
-          this.quotes.push([sym,name,change])
-        }
-          this.renderOK = true
-          this.forceUpdate()
-      }.bind(this))
+      this.renderOK = true
+      this.forceUpdate()
+    }.bind(this)  });
 },
 handleUpdate: function() {
   this.forceUpdate()
