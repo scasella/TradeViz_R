@@ -191,11 +191,6 @@ tr {
   bottom: 7%;
   z-index: 2;
 }
-#quoteTable {
-  margin: 0 auto;
-  width: 750px;
-  margin-top: -65px
-}
 #tdTwo {
   font-family: 'Roboto', sans-serif;
   font-weight: medium;
@@ -229,10 +224,18 @@ tr {
   color: #FF0000
 }
 #quoteDiv {
-  display: inline
+  display: inline;
+  position: absolute;
+  top: 10px;
+  right: 0%;
+  height: 400px;
+  width: 150px;
+  text-align: left;
 }
 #quotePar {
-  font-size: 16px;
+  font-size: 18px;
+  text-align: left;
+  font-weight: normal;
 }
 a,a:link,a:visited,a:active,#quotePar{
   cursor:pointer;
@@ -289,4 +292,7 @@ a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
 }
 .about-p {
   text-indent: 40px
+}
+p#quotePar {
+  pointer-events: none;
 }

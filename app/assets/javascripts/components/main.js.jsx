@@ -5,8 +5,8 @@ getInitialState: function() {
 },
 componentDidMount: function() {
   this.fetchQuotes()
-  setInterval(this.fetchQuotes, 60000)
-  setInterval(this.handleUpdate, 8000)
+  setInterval(this.fetchQuotes, 15000)
+  setInterval(this.handleUpdate, 4000)
 },
 showHome: true,
 currentText: "",
@@ -15,12 +15,8 @@ quotes: [],
 render: function() {
   return (
     <div>
-      <div id="quoteTable">
-        <table>
-          <tbody>
-            {this.renderQuotes()}
-          </tbody>
-        </table>
+      <div id="quoteDiv">
+        {this.renderQuotes()}
       </div>
       <div id="secondary-bg">
         {this.renderChoice()}
@@ -81,37 +77,54 @@ handleUpdate: function() {
 },
 renderQuotes: function() {
   if (this.renderOK == true) {
-    qArrCopy = this.quotes
+    var qFormatArr = this.quotes.slice()
+    qFormatArr.splice(0,3)
+    one = qFormatArr[Math.floor(Math.random()*qFormatArr.length)]
 
-    one = qArrCopy[Math.floor(Math.random()*qArrCopy.length)]
-    ind = qArrCopy.indexOf(one)
-    qArrCopy.splice(ind,1)
+    //ind = qArrCopy.indexOf(one)
+    //qArrCopy.splice(ind,1)
 
-    two = qArrCopy[Math.floor(Math.random()*qArrCopy.length)]
-    ind = qArrCopy.indexOf(two)
-    qArrCopy.splice(ind,1)
+    //two = qArrCopy[Math.floor(Math.random()*qArrCopy.length)]
+    //ind = qArrCopy.indexOf(two)
+    //qArrCopy.splice(ind,1)
 
-    test = [Math.floor(Math.random()*qArrCopy.length)]
-    three = qArrCopy[test]
+    //test = [Math.floor(Math.random()*qArrCopy.length)]
+    //three = qArrCopy[test]
 
     return (
-      <tr>
-        <td id="tdTwo">{this.formatQuote(one[0],one[2],one[1])}</td>
-        <td id="tdTwo">{this.formatQuote(two[0],two[2],two[1])}</td>
-        <td id="tdTwo">{this.formatQuote(three[0],three[2],three[1])}</td>
-      </tr>
+      <div>
+        {this.formatQuote('S&P 500',this.quotes[0][2],this.quotes[0][1])}
+        {this.formatQuote('DOW',this.quotes[1][2],this.quotes[1][1])}
+        {this.formatQuote('NASDAQ',this.quotes[2][2],this.quotes[2][1])}
+        {this.formatQuote(one[0],one[2],one[1])}
+      </div>
     )
   } else {
     return
   }
 },
 formatQuote: function(sym,change,name) {
-  tempChg = ((Math.round(parseFloat(change) * 100))/100)
+  var tempChg = ((Math.round(parseFloat(change) * 100))/100)
   if (change.charAt(0) == '-') {
-    return <div id="quoteDiv"><a onClick={this.quoteClick} value={sym} id="quotePar">{sym}</a>{"\u00a0"}{"\u00a0"}<p id="redChange">{tempChg+"%"}</p><br /><p id="namePar">{name}</p></div>
+    if (tempChg.toString().length == 4)
+      tempChg = tempChg.toString()+"0"
   } else {
-    return <div id="quoteDiv"><a onClick={this.quoteClick} value={sym} id="quotePar">{sym}</a>{"\u00a0"}{"\u00a0"}<p id="greenChange">{"+"+tempChg+"%"}</p><br /><p id="namePar">{name}</p></div>
+    if (tempChg.toString().length == 3) {
+      tempChg = tempChg.toString()+"0"
+    }
+  }
+  if (change.charAt(0) == '-') {
+    if (sym == "S&P 500" || sym == "DOW" || sym == "NASDAQ") {
+      return <div><p id="redChange">{tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<a onClick={this.quoteClick} value={sym} id="quotePar">{sym}</a></div>
+    } else {
+      return <div><p id="redChange">{tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<p value={sym} id="quotePar">{sym}</p></div>
+    }
+  } else {
+    if (sym == "S&P 500" || sym == "DOW" || sym == "NASDAQ") {
+      return <div><p id="greenChange">{"+"+tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<p value={sym} id="quotePar">{sym}</p></div>
+    } else {
+        return <div><p id="greenChange">{"+"+tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<a onClick={this.quoteClick} value={sym} id="quotePar">{sym}</a></div>
+    }
   }
 },
-
 })
