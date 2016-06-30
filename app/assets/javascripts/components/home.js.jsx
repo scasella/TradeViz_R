@@ -17,9 +17,9 @@ render: function() {
   return (
   <div>
       {this.renderLogic()}
-      <div id="home-text">Match your stock's chart pattern to over 5,305,608 historical patterns, visualize the outcomes, and trade with the odds on your side.</div>
-        <table>
-          <tbody >
+      <div id="home-text">Match your stock's chart pattern to over 5,305,608 historical patterns, visualize the outcomes, and trade with the odds on your side.</div><br />
+        <table id="home-table">
+          <tbody>
             <tr>
               <td id="hOne"><div id="chart1H"></div>{this.determineOutcomes(1)}</td>
               <td id="hTw"><div id="chart2H"></div>{this.determineOutcomes(2)}</td>

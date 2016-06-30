@@ -5,7 +5,6 @@ getInitialState: function() {
 },
 componentDidMount: function() {
   this.buttonClick()
-  console.log("mounted")
 },
 reloadPage: function() {
   location.reload(true)

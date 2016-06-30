@@ -9,9 +9,9 @@ body {
 }
 #logo {
   position: relative;
-  padding-top: 22px;
+  padding-top: 16px;
   padding-left: 15px;
-  height: 83px;
+  height: 85px;
   width: 198px;
 
 }
@@ -24,7 +24,7 @@ body {
   border: 1px solid #BBBBBB;
   border-radius: 15px;
   text-align: center;
-  margin-top: 45px;
+  margin-top: 48px;
   min-width: 300px
 }
 #b-home {
@@ -76,7 +76,7 @@ body {
   width: 75%;
   display: block;
   height: 65px;
-  margin-top: 40px;
+  margin-top: 42px;
   min-width: 275px;
   position: absolute;
   margin-left: auto;
@@ -250,6 +250,11 @@ a,a:link,a:visited,a:active,#quotePar{
 }
 a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
   color: #409fb6
+}
+#home-table {
+  margin: 0 auto;
+  margin-top: 65px;
+  width: 65%
 }
 #tdOne, #tdTw, #tdTh, #hOne, #hTw, #hTh {
   text-align: center;
