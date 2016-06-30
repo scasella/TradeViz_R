@@ -6,7 +6,7 @@ getInitialState: function() {
 componentDidMount: function() {
   this.fetchQuotes()
   setInterval(this.fetchQuotes, 15000)
-  setInterval(this.handleUpdate, 4000)
+  setInterval(this.handleUpdate, 8000)
 },
 showHome: true,
 currentText: "",
