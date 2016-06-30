@@ -9,10 +9,8 @@ body {
 }
 #logo {
   position: relative;
-  padding-top: 16px;
+  margin-top: 22px;
   padding-left: 15px;
-  height: 85px;
-  width: 198px;
 
 }
 #home-outline {
@@ -24,7 +22,7 @@ body {
   border: 1px solid #BBBBBB;
   border-radius: 15px;
   text-align: center;
-  margin-top: 48px;
+  margin-top: 52px;
   min-width: 300px
 }
 #b-home {
@@ -76,7 +74,7 @@ body {
   width: 75%;
   display: block;
   height: 65px;
-  margin-top: 42px;
+  margin-top: 48px;
   min-width: 275px;
   position: absolute;
   margin-left: auto;
@@ -227,18 +225,18 @@ tr {
 #quoteDiv {
   display: inline;
   position: absolute;
-  top: 21px;
+  top: 20px;
   right: 0%;
   height: 400px;
   width: 145px;
   text-align: left;
-  color: #E7ECEA
+  color: white
 }
 #quotePar {
   font-size: 16px;
   text-align: left;
   font-weight: normal;
-  color: #E7ECEA
+  color: white
 }
 a,a:link,a:visited,a:active,#quotePar{
   cursor:pointer;
@@ -246,7 +244,7 @@ a,a:link,a:visited,a:active,#quotePar{
   display: inline;
   font-weight: bold;
   font-family: 'Roboto', sans-serif;
-  color:#E7ECEA;
+  color: white
 }
 a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
   color: #409fb6
@@ -265,7 +263,7 @@ a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
   width: 150px;
   height: 125px;
   margin: 0 auto;
-  margin-top: 52px;
+  margin-top: 62px;
 }
 #pl-pH {
   margin: 0 auto;
