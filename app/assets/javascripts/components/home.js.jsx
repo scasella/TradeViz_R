@@ -52,7 +52,7 @@ reloadPage: function() {
   location.reload(true)
 },
 createCharts: function() {
-  arr = ["chart3H","chart2H","chart1H"]
+  arr = ["chart1H","chart2H","chart3H"]
     for (i=0; i < 3; i++) {
       tempArr = this.dataDict[i]
 
@@ -194,7 +194,7 @@ dataHandler: function(data) {
   for (count=0; count < 3; count++) {
 
     dataR = newData[count]
-    this.resultSymbols.push(newData[count]['symbol'])
+    this.resultSymbols.push(dataR['symbol'])
     finalData = this.shapeData(dataR)
     //Set line colors
     seriesDict = {}
