@@ -161,7 +161,6 @@ shapeOptions: function(seriesDict, colorArr, title) {
   return chartOptions
 },
 buttonClick: function() {
-  console.log(this.props.quote)
 
   if (this.props.quote.length < 6) {
     $.ajax({

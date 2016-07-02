@@ -5,8 +5,7 @@ getInitialState: function() {
 },
 componentDidMount: function() {
   this.fetchQuotes()
-  setInterval(this.fetchQuotes, 15000)
-  this.interval = setInterval(this.handleUpdate, 8000)
+  setInterval(this.fetchQuotes, 10000)
 },
 interval: "",
 showHome: true,
@@ -43,6 +42,8 @@ renderChoice: function(){
 buttonPressed: function(val) {
   this.currentText = val
   this.showHome = false
+  this.quotes = []
+  this.fetchQuotes()
   this.forceUpdate()
 },
 quoteClick: function(event) {
@@ -52,45 +53,56 @@ quoteClick: function(event) {
 },
 fetchQuotes: function() {
   this.quotes = []
-
-  $.ajax({
-    //data: formData,
-    url: 'https://agile-wave-32875.herokuapp.com/quotes',
-    type: "GET",
-    dataType: "json",
-    error(xhr,status,error) {
-      console.log("Quote fetch error")
-    },
-    success: function(data) {
-      access = data.list.resources
-      for (i = 0; i < access.length; i++) {
-        sym = access[i].resource.fields.symbol
-        name = access[i].resource.fields.issuer_name
-        change = access[i].resource.fields.chg_percent
+  if (this.showHome == true) {
+    $.ajax({
+      //data: formData,
+      url: 'https://agile-wave-32875.herokuapp.com/quotes',
+      type: "GET",
+      dataType: "json",
+      error(xhr,status,error) {
+        console.log("Quote fetch error")
+      },
+      success: function(data) {
+        access = data.list.resources
+        for (i = 0; i < access.length; i++) {
+          sym = access[i].resource.fields.symbol
+          name = access[i].resource.fields.issuer_name
+          change = access[i].resource.fields.chg_percent
+          this.quotes.push([sym,name,change])
+        }
+        this.renderOk = true
+        this.forceUpdate()
+      }.bind(this)  });
+  } else {
+    this.renderOk = false
+    $.ajax({
+      //data: formData,
+      url: 'https://agile-wave-32875.herokuapp.com/quotes/'+this.currentText,
+      type: "GET",
+      dataType: "json",
+      error(xhr,status,error) {
+        console.log("Quote fetch error")
+      },
+      success: function(data) {
+        access = data.list.resources
+        sym = access[0].resource.fields.symbol
+        name = access[0].resource.fields.issuer_name
+        change = access[0].resource.fields.chg_percent
         this.quotes.push([sym,name,change])
-      }
-      this.renderOK = true
-      this.forceUpdate()
-    }.bind(this)  });
+        this.renderOk = true
+        this.forceUpdate()
+      }.bind(this)  });
+  }
 },
 handleUpdate: function() {
   this.forceUpdate()
 },
 renderQuotes: function() {
-  if (this.renderOK == true) {
+  if (this.renderOk == true) {
+    if (this.showHome == true) {
     var qFormatArr = this.quotes.slice()
     qFormatArr.splice(0,3)
     one = qFormatArr[Math.floor(Math.random()*qFormatArr.length)]
-
-    //ind = qArrCopy.indexOf(one)
-    //qArrCopy.splice(ind,1)
-
-    //two = qArrCopy[Math.floor(Math.random()*qArrCopy.length)]
-    //ind = qArrCopy.indexOf(two)
-    //qArrCopy.splice(ind,1)
-
-    //test = [Math.floor(Math.random()*qArrCopy.length)]
-    //three = qArrCopy[test]
 
     return (
       <div>
@@ -100,6 +112,13 @@ renderQuotes: function() {
         {this.formatQuote(one[0],one[2],one[1])}
       </div>
     )
+  } else {
+    return (
+      <div>
+        {this.formatQuote(this.currentText,this.quotes[0][2],this.quotes[0][1])}
+      </div>
+    )
+  }
   } else {
     return
   }
@@ -112,19 +131,36 @@ formatQuote: function(sym,change,name) {
   } else {
     if (tempChg.toString().length == 3) {
       tempChg = tempChg.toString()+"0"
+    } else if (tempChg.toString().length == 1) {
+      tempChg = tempChg.toString()+".00"
     }
   }
+
+  finalStyle = {}
+
+  if (this.showHome == true) {
+    finalStyle = {
+      fontSize: '16px'
+    }
+  } else {
+    finalStyle = {
+      fontSize: '42px',
+      lineHeight: '50px'
+    }
+  }
+
+
   if (change.charAt(0) == '-') {
     if (sym == "S&P 500" || sym == "DOW" || sym == "NASDAQ") {
-      return <div><p id="redChange">{tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<a onClick={this.quoteClick} value={sym} id="quotePar">{sym}</a></div>
+      return <div><p id="redChange">{tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<a onClick={this.quoteClick} value={sym} id="quotePar" style={finalStyle}>{sym}</a></div>
     } else {
-      return <div><p id="redChange">{tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<p value={sym} id="quotePar">{sym}</p></div>
+      return <div><p id="redChange">{tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<p value={sym} id="quotePar" style={finalStyle}>{sym}</p></div>
     }
   } else {
     if (sym == "S&P 500" || sym == "DOW" || sym == "NASDAQ") {
-      return <div><p id="greenChange">{"+"+tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<p value={sym} id="quotePar">{sym}</p></div>
+      return <div><p id="greenChange">{"+"+tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<p value={sym} id="quotePar" style={finalStyle}>{sym}</p></div>
     } else {
-        return <div><p id="greenChange">{"+"+tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<a onClick={this.quoteClick} value={sym} id="quotePar">{sym}</a></div>
+        return <div><p id="greenChange">{"+"+tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<a onClick={this.quoteClick} value={sym} id="quotePar" style={finalStyle}>{sym}</a></div>
     }
   }
 },

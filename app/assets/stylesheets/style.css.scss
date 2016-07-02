@@ -11,7 +11,6 @@ body {
   position: relative;
   margin-top: 22px;
   padding-left: 15px;
-
 }
 #home-outline {
   margin: auto;
@@ -226,14 +225,18 @@ tr {
   display: inline;
   position: absolute;
   top: 20px;
-  right: 0%;
   height: 400px;
-  width: 145px;
   text-align: left;
+  color: white;
+  margin-right: 15px;
+  right: 0%
+}
+#quotePar {
+  text-align: left;
+  font-weight: normal;
   color: white
 }
 #quotePar {
-  font-size: 16px;
   text-align: left;
   font-weight: normal;
   color: white
