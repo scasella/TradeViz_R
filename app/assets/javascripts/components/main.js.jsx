@@ -5,7 +5,7 @@ getInitialState: function() {
 },
 componentDidMount: function() {
   this.fetchQuotes()
-  setInterval(this.fetchQuotes, 10000) 
+  //setInterval(this.fetchQuotes, 10000)
 },
 interval: "",
 showHome: true,
@@ -17,6 +17,7 @@ render: function() {
     <div>
       <div id="quoteDiv">
         {this.renderQuotes()}
+        {this.smallBar()}
       </div>
       <div id="secondary-bg">
         {this.renderChoice()}
@@ -39,6 +40,17 @@ renderChoice: function(){
   )
   }
 },
+smallBar: function() {
+  if (this.showHome == false) {
+    return <div id="searchQuote"><input id="quoteSearch" type="search" onChange={this.pressed} onKeyPress={this.ePress} autoComplete="off"></input><button type='button' id="quoteB" onClick={this.sButtonPressed}></button></div>
+  }
+},
+ePress: function(event) {
+    if (event.key == "Enter") {
+    this.sButtonPressed()
+    document.getElementById('quoteSearch').value = ""
+    }
+},
 buttonPressed: function(val) {
   this.currentText = val
   this.showHome = false
@@ -50,6 +62,17 @@ quoteClick: function(event) {
   this.showHome = true
   this.forceUpdate()
   this.buttonPressed(event.target.value)
+},
+sButtonPressed: function() {
+  this.showHome = false
+  this.quotes = []
+  this.fetchQuotes()
+  document.getElementById('quoteSearch').value = ""
+  this.forceUpdate()
+},
+pressed: function(event) {
+  this.currentText = event.target.value.toUpperCase()
+  console.log(this.currentText)
 },
 fetchQuotes: function() {
   this.quotes = []
@@ -145,10 +168,9 @@ formatQuote: function(sym,change,name) {
   } else {
     finalStyle = {
       fontSize: '42px',
-      lineHeight: '50px'
+      lineHeight: '50px',
     }
   }
-
 
   if (change.charAt(0) == '-') {
     if (sym == "S&P 500" || sym == "DOW" || sym == "NASDAQ") {

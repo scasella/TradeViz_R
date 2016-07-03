@@ -122,7 +122,7 @@ tr {
 #chart1, #chart2, #chart3  {
   width: 350px;
   margin: 0 auto;
-  margin-top: -45px;
+  margin-top: -25px;
 }
 #chart1F, #chart2F, #chart3F  {
   margin-top: -5px;
@@ -178,7 +178,7 @@ tr {
 }
 #refresh {
   font-weight: medium;
-  font-size: 16px;
+  font-size: 14px;
   position: absolute;
   margin-left: auto;
   margin-right: auto;
@@ -186,7 +186,7 @@ tr {
   left: 0;
   right: 0;
   color: white;
-  bottom: 7%;
+  bottom: 10%;
   z-index: 2;
 }
 #tdTwo {
@@ -229,7 +229,7 @@ tr {
   height: 400px;
   text-align: left;
   color: white;
-  margin-right: 15px;
+  margin-right: 20px;
   right: 0%
 }
 #quotePar {
@@ -305,4 +305,38 @@ a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
 }
 p#quotePar {
   pointer-events: none;
+}
+#quoteSearch {
+  background-color: black;
+  color: white;
+  border-width: 0;
+  border-radius: 4px;
+  font-family: 'Roboto', sans-serif;
+  outline: none;
+  padding-left: 5px;
+  width: 75px;
+  height: 30px;
+  text-transform: uppercase;
+  box-shadow: 0px 0px 2px #141414;
+  text-shadow: 0px 0px 2px #FFFFFF;
+}
+#quoteB {
+  position: relative;
+  height: 30px;
+  width: 30px;
+  background: url('/assets/button.png') no-repeat scroll 0 0 transparent;
+  background-size: 100%;
+  border: 0px;
+  top: 7px;
+  margin-left: 5px;
+}
+#quoteB:hover {
+  height: 30px;
+  width: 30px;
+  background: url('/assets/button-hover.png') no-repeat scroll 0 0 transparent;
+  background-size: 100%;
+  border: 0px
+}
+#searchQuote {
+  text-align: right;
 }
