@@ -43,7 +43,7 @@ renderChoice: function(){
 },
 renderList: function() {
     return (<div className="dropdown">
-              <button className="dropbtn">Tickers...</button>
+              <button className="dropbtn">Stocks</button>
                 <div className="dropdown-content">
                   {this.completeList()}
                 </div>
