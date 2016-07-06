@@ -5,7 +5,7 @@ getInitialState: function() {
 },
 componentDidMount: function() {
   this.fetchQuotes()
-  //setInterval(this.fetchQuotes, 10000)
+  setInterval(this.fetchQuotes, 7500)
 },
 interval: "",
 showHome: true,
