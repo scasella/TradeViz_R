@@ -88,19 +88,19 @@ body {
   vertical-align: center;
   height: 75px;
 }
-@media all and (min-width: 960px) {
+@media all and (min-device-width: 960px) {
 #home-text {
     font-size: 22px;
   }
 }
 
-@media all and (max-width: 959px) and (min-width: 600px) {
+@media all and (max-device-width: 959px) and (min-device-width: 600px) {
 #home-text {
     font-size: 18px;
   }
 }
 
-@media all and (max-width: 599px) and (min-width: 50px) {
+@media all and (max-device-width: 599px) and (min-device-width: 50px) {
 #home-text {
     font-size: 16px;
   }
