@@ -5,6 +5,7 @@ getInitialState: function() {
 },
 componentDidMount: function() {
   setTimeout(this.loadCharts, 2500)
+  $('[data-toggle="popover"]').popover()
 },
 //interval: setInterval(this.fetchQuotes, 10000),
 result1: [],
@@ -20,8 +21,7 @@ render: function() {
   return (
   <div>
       {this.renderLogic()}
-      <div id="home-text">Match your stock's chart pattern to over five million historical patterns, visualize the outcomes, and trade with the odds on your side.</div><br />
-      <br /><br />
+      <div id="home-text">Match your stock's chart pattern to over five million historical patterns, visualize the outcomes, and trade with the odds on your side.</div>
 
         <table id="home-table">
           <tbody>
@@ -29,7 +29,7 @@ render: function() {
               <td id="hOne"><div id="chart1H"></div>{this.determineOutcomes(1)}</td>
               <td id="hTw"><div id="chart2H"></div>{this.determineOutcomes(2)}</td>
               <td id="hTh"><div id="chart3H"></div>{this.determineOutcomes(3)}</td>
-              <td id="hFr"><p id="bullBear">{this.bullBear()}</p><div id="chart4H"></div></td>
+              <td id="hFr"><p id="bullBear">{this.bullBear()}</p><div id="chart4H"></div><br /><div id="popOverDiv"><a href="#" id="popText" data-toggle="popover" title="Popover Header" data-content="Our context model takes the current price action of each component of the S&P 500, finds the most similar historical patterns for each stock, averages the outcomes of these matching patterns according to the quality of the match, then adds each stock's predicted return according to their weighting in the S&P 500 index to calculate the forecast displayed above. This model updates daily."><span className="glyphicon glyphicon-question-sign"></span></a></div></td>
             </tr>
           </tbody>
         </table>

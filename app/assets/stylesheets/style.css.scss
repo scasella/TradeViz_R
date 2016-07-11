@@ -75,9 +75,7 @@ body {
   margin: auto;
   width: 85%;
   display: block;
-  height: 100px;
-  margin-top: 35px;
-  position: absolute;
+  margin-top: 30px;
   margin-left: auto;
   margin-right: auto;
   left: 0;
@@ -88,6 +86,8 @@ body {
   font-weight: medium;
   letter-spacing: 2px;
   vertical-align: center;
+  height: 75px;
+  font-size: 1.75vw;
 }
 #bottom-links {
   position: absolute;
@@ -96,7 +96,7 @@ body {
   text-align: center;
   left: 0;
   right: 0;
-  bottom: 1%;
+  bottom: 0.5%;
 }
 .link {
   font-weight: lighter;
@@ -258,30 +258,32 @@ a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
 }
 #home-table {
   margin: 0 auto;
-  margin-top: 60px;
-  width: 65%
+  margin-top: 10px;
+  width: 65%;
+  height: 200px
 }
 #tdOne, #tdTw, #tdTh, #hOne, #hTw, #hTh, #hFr {
   text-align: center;
   align: center;
   visibility: hidden;
-  margin-top: 10px
+  margin-top: 10px;
 }
 #chart1H, #chart2H, #chart3H {
   width: 150px;
   height: 125px;
   margin: 0 auto;
-  margin-top: 0px
+  margin-top: -12px
 }
 #hFr, #chart4H {
   position: absolute;
   width: 600px;
+  height: 200px;
   margin: 0 auto;
   text-align: center;
   align: center;
   left: 0;
   right: 0;
-  margin-top: -15px
+  margin-top: -15px;
 }
 
 #pl-pH {
@@ -422,14 +424,13 @@ p#quotePar {
     background-color: #25282c;
 }
 #button-div {
-  position: absolute;
   display: block;
   align: center;
   text-align: center;
   margin: 0 auto;
   left: 0;
   right: 0;
-  bottom: 8%;
+  margin-top: 15px
 }
 .toggleBtn {
   background-color: transparent;
@@ -466,4 +467,20 @@ p#quotePar {
   margin-top: 15px;
   //text-shadow: 0px 0px 1px #e7ecea;
   letter-spacing: 1px;
+}
+.popover {
+    width: 450px
+}
+.popover-title {
+  display: none
+}
+.popover-content {
+  text-align: center;
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+  background: #25282c;
+  border-radius: 4px
+}
+#popOverDiv {
+  margin-top: 125px
 }
