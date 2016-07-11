@@ -86,8 +86,24 @@ body {
   font-weight: medium;
   letter-spacing: 2px;
   vertical-align: center;
-  height: 75px;
-  font-size: 1.75vw;
+  height: auto;
+}
+@media all and (min-width: 960px) {
+#home-text {
+    font-size: 22px;
+  }
+}
+
+@media all and (max-width: 959px) and (min-width: 600px) {
+#home-text {
+    font-size: 18px;
+  }
+}
+
+@media all and (max-width: 599px) and (min-width: 50px) {
+#home-text {
+    font-size: 16px;
+  }
 }
 #bottom-links {
   position: absolute;
