@@ -1,3 +1,22 @@
+
+@media all and (min-device-width: 960px) {
+#home-text {
+    font-size: 22px;
+  }
+}
+
+@media all and (max-device-width: 959px) and (min-device-width: 600px) {
+#home-text {
+    font-size: 18px;
+  }
+}
+
+@media all and (max-device-width: 599px) and (min-device-width: 50px) {
+#home-text {
+    font-size: 16px;
+  }
+}
+
 body {
   background: url('/assets/bg.jpg') no-repeat fixed;
   -webkit-background-size: cover;
@@ -80,30 +99,12 @@ body {
   margin-right: auto;
   left: 0;
   right: 0;
-  font-size: 22px;
   color: #E7ECEA;
   text-align: center;
   font-weight: medium;
   letter-spacing: 2px;
   vertical-align: center;
   height: 75px;
-}
-@media all and (min-device-width: 960px) {
-#home-text {
-    font-size: 22px;
-  }
-}
-
-@media all and (max-device-width: 959px) and (min-device-width: 600px) {
-#home-text {
-    font-size: 18px;
-  }
-}
-
-@media all and (max-device-width: 599px) and (min-device-width: 50px) {
-#home-text {
-    font-size: 16px;
-  }
 }
 #bottom-links {
   position: absolute;
