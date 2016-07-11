@@ -287,7 +287,7 @@ futureHandler: function(data) {
   }
 
   chartOptionsF = {
-    title: 'S&P 500 CONTEXT MODEL / 2-WEEK RETURN',
+    title: 'S&P 500 CONTEXT MODEL / 2-WEEK FORECAST',
     titlePosition: 'out',
     titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', fontSize: 10, bold: true},
     curveType: 'function',
