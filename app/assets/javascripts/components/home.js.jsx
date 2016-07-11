@@ -10,25 +10,68 @@ componentDidMount: function() {
 result1: [],
 result2: [],
 result3: [],
+dataHold: [],
 currentText: "SPY",
 dataDict: [],
 resultSymbols: [],
+showBest: false,
+isBull: true,
 render: function() {
   return (
   <div>
       {this.renderLogic()}
       <div id="home-text">Match your stock's chart pattern to over 5,305,608 historical patterns, visualize the outcomes, and trade with the odds on your side.</div><br />
+      <br /><br />
+
         <table id="home-table">
           <tbody>
             <tr>
               <td id="hOne"><div id="chart1H"></div>{this.determineOutcomes(1)}</td>
               <td id="hTw"><div id="chart2H"></div>{this.determineOutcomes(2)}</td>
               <td id="hTh"><div id="chart3H"></div>{this.determineOutcomes(3)}</td>
+              <td id="hFr"><p id="bullBear">{this.bullBear()}</p><div id="chart4H"></div></td>
             </tr>
           </tbody>
         </table>
+        <div id="button-div"><button type="button" id="toggleBtn" onClick={this.toggleBest} className="toggleBtn">{this.showBest ? "S&P 500 Model >" : "Best Patterns >"}</button></div>
   </div>
   )
+},
+bullBear: function() {
+  if (this.isBull) {
+    return "MARKET IS BULLISH"
+  } else {
+    return "MARKET IS BEARISH"
+  }
+
+},
+toggleBest: function() {
+  if (this.showBest == true) {
+    this.showBest = false
+  } else {
+    this.showBest = true
+  }
+  this.determineShow()
+  this.forceUpdate()
+},
+determineShow: function() {
+  if (this.showBest == true) {
+    document.getElementById('hOne').style.visibility = "visible"
+    document.getElementById('hTw').style.visibility = "visible"
+    document.getElementById('hTh').style.visibility = "visible"
+
+    document.getElementById('hFr').style.visibility = "hidden"
+
+    document.getElementById('toggleBtn').value = "S&P 500 MODEL"
+  } else {
+    document.getElementById('hOne').style.visibility = "hidden"
+    document.getElementById('hTw').style.visibility = "hidden"
+    document.getElementById('hTh').style.visibility = "hidden"
+
+    document.getElementById('hFr').style.visibility = "visible"
+
+    document.getElementById('toggleBtn').value = "BEST PATTERNS"
+  }
 },
 renderLogic: function() {
     return (
@@ -52,8 +95,8 @@ reloadPage: function() {
   location.reload(true)
 },
 createCharts: function() {
-  arr = ["chart1H","chart2H","chart3H"]
-    for (i=0; i < 3; i++) {
+  arr = ["chart1H","chart2H","chart3H","chart4H"]
+    for (i=0; i < 4; i++) {
       tempArr = this.dataDict[i]
 
       chartData = tempArr[0]
@@ -61,9 +104,7 @@ createCharts: function() {
       chart = new google.visualization.LineChart(document.getElementById(arr[i]));
       chart.draw(chartData, chartOptions)
     }
-  document.getElementById('hOne').style.visibility = "visible"
-  document.getElementById('hTw').style.visibility = "visible"
-  document.getElementById('hTh').style.visibility = "visible"
+  this.determineShow()
   this.forceUpdate()
 },
 determineOutcomes: function(num) {
@@ -176,6 +217,7 @@ loadCharts: function() {
         //window.location.reload()
       },
       success: function(data) {
+        this.dataHold = data[(data.length-1)]
         this.dataHandler(data)
       }.bind(this)  });
 },
@@ -189,8 +231,7 @@ shuffleArray: function(array) {
     return array;
 },
 dataHandler: function(data) {
-
-  newData = this.shuffleArray(data)
+  newData = this.shuffleArray(data.slice(0,(data.length-1)))
   for (count=0; count < 3; count++) {
 
     dataR = newData[count]
@@ -217,9 +258,55 @@ dataHandler: function(data) {
     this.computeSharpe(dataR['future'][(dataR['future'].length - 1)] ,dataR['stDev'][(dataR['stDev'].length - 1)],count+1)
 
     if (count==2) {
-      this.createCharts()
+      this.futureHandler(this.dataHold)
     }
 
   }
+},
+futureHandler: function(data) {
+  this.resultSymbols.push(data['symbol'])
+  fData = []
+  for (i=0; i < data['future'].length; i++) {
+    fData.push([])
+    fData[i].push(i, data['future'][i])
+  }
+  headerArr = ['one','one']
+  fData.unshift(headerArr)
+
+  if (data['future'][data['future'].length-1] >= 0.0) {
+    this.isBull = true
+  } else {
+    this.isBull = false
+  }
+
+  seriesDict = {}
+  colorArr = []
+  for (i = 0; i < data['future'].length; i++) {
+    seriesDict[i] = { lineWidth: 4 }
+    colorArr.push('#70cfe6')
+  }
+
+  chartOptionsF = {
+    title: 'S&P 500 CONTEXT MODEL / 2-WEEK RETURN',
+    titlePosition: 'out',
+    titleTextStyle: {color: '#FFFFFF', fontName: 'Roboto', fontSize: 10, bold: true},
+    curveType: 'function',
+    legend: { position: 'none' },
+    animation: {duration: 1200, startup: 'true', easing: 'linear' },
+    vAxis: {baselineColor: 'white', textStyle: { fontName: 'Roboto', fontSize: '10', color: 'white'}},
+    hAxis: {baselineColor: 'white', textStyle: { fontName: 'Roboto', fontSize: '10', color: 'white'}},
+    backgroundColor: 'transparent',
+    series: seriesDict,
+    colors: colorArr,
+    enableInteractivity: false,
+    width: 600,
+    height: 175
+  };
+
+  chartDataF = google.visualization.arrayToDataTable(fData)
+
+  this.dataDict.push([chartDataF,chartOptionsF])
+
+  this.createCharts()
 }
 })

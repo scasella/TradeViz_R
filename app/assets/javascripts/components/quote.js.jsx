@@ -224,6 +224,7 @@ buttonClick: function() {
           backgroundColor: 'transparent',
           series: seriesDict,
           colors: colorArr,
+          enableInteractivity: false,
           width: 300,
           height: 100
         };
@@ -303,6 +304,7 @@ buttonClick: function() {
           backgroundColor: 'transparent',
           series: seriesDict,
           colors: colorArr,
+          enableInteractivity: false,
           width: 300,
           height: 100
         };
@@ -381,6 +383,7 @@ buttonClick: function() {
             backgroundColor: 'transparent',
             series: seriesDict,
             colors: colorArr,
+            enableInteractivity: false,
             width: 300,
             height: 100
           };

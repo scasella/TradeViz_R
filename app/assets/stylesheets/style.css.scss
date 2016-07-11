@@ -73,7 +73,7 @@ body {
   width: 75%;
   display: block;
   height: 65px;
-  margin-top: 48px;
+  margin-top: 35px;
   min-width: 275px;
   position: absolute;
   margin-left: auto;
@@ -84,7 +84,7 @@ body {
   color: #E7ECEA;
   text-align: center;
   font-weight: medium;
-   letter-spacing: 2px;
+  letter-spacing: 2px;
 }
 #bottom-links {
   position: absolute;
@@ -255,20 +255,32 @@ a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
 }
 #home-table {
   margin: 0 auto;
-  margin-top: 65px;
+  margin-top: 60px;
   width: 65%
 }
-#tdOne, #tdTw, #tdTh, #hOne, #hTw, #hTh {
+#tdOne, #tdTw, #tdTh, #hOne, #hTw, #hTh, #hFr {
   text-align: center;
   align: center;
   visibility: hidden;
+  margin-top: 10px
 }
 #chart1H, #chart2H, #chart3H {
   width: 150px;
   height: 125px;
   margin: 0 auto;
-  margin-top: 62px;
+  margin-top: 0px
 }
+#hFr, #chart4H {
+  position: absolute;
+  width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  align: center;
+  left: 0;
+  right: 0;
+  margin-top: -15px
+}
+
 #pl-pH {
   margin: 0 auto;
   font-size: 16px;
@@ -360,6 +372,8 @@ p#quotePar {
     border: 1px solid #25282c;
     margin-top: 15px;
     padding: 0;
+    transition: background-color 0.15s;
+    outline: none;
 }
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
@@ -403,4 +417,50 @@ p#quotePar {
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
     background-color: #25282c;
+}
+#button-div {
+  position: absolute;
+  display: block;
+  align: center;
+  text-align: center;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  bottom: 8%;
+}
+.toggleBtn {
+  background-color: transparent;
+  //#25282c
+  border: 1px solid #25282c;
+  color: #FFFFFF;
+  border-radius: 5px;
+  height: 30px;
+  width: 100px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  padding: 2px;
+  transition: background-color 0.25s;
+  font-weight: bold;
+  color: #e7ecea;
+  outline: none;
+}
+.toggleBtn:hover {
+  background-color: #25282c;
+  border: 1px solid #25282c;
+  color: #FFFFFF;
+  border-radius: 5px;
+  height: 30px;
+  width: 100px;
+}
+#bullBear {
+  display: block;
+  position: relative;
+  right: 0;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  color: #70cfe6;
+  margin-top: 15px;
+  text-shadow: 0px 0px 1px #e7ecea;
+  letter-spacing: 1px;
 }
