@@ -273,7 +273,7 @@ futureHandler: function(data) {
   headerArr = ['one','one']
   fData.unshift(headerArr)
 
-  if (data['future'][data['future'].length-1] >= 0.0) {
+  if (data['future'][4] >= 0.0) {
     this.isBull = true
   } else {
     this.isBull = false
