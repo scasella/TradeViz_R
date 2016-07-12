@@ -16,7 +16,7 @@ currentText: "SPY",
 dataDict: [],
 resultSymbols: [],
 showBest: false,
-isBull: true,
+isBull: 0,
 render: function() {
   return (
   <div>
@@ -38,10 +38,12 @@ render: function() {
   )
 },
 bullBear: function() {
-  if (this.isBull) {
+  if (this.isBull == 0) {
     return "MARKET IS BULLISH"
-  } else {
+  } else if (this.isBull == 1){
     return "MARKET IS BEARISH"
+  } else {
+    return "MARKET IS NEUTRAL"
   }
 
 },
@@ -273,10 +275,12 @@ futureHandler: function(data) {
   headerArr = ['one','one']
   fData.unshift(headerArr)
 
-  if (data['future'][4] >= 0.0) {
-    this.isBull = true
+  if (data['future'][data['future'].length-1] >= 0.001) {
+    this.isBull = 0
+  } else if (data['future'][data['future'].length-1] <= -0.001) {
+    this.isBull = 1
   } else {
-    this.isBull = false
+    this.isBull = 2
   }
 
   seriesDict = {}
