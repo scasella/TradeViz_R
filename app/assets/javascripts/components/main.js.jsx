@@ -85,13 +85,12 @@ completeList: function() {
 },
 smallBar: function() {
   if (this.showHome == false) {
-    return <div id="searchQuote"><input id="quoteSearch" type="search" onChange={this.pressed} onKeyPress={this.ePress} autoComplete="off"></input><button type='button' id="quoteB" onClick={this.sButtonPressed}></button></div>
+    return <div id="searchQuote"><input id="quoteSearch" type="search" onKeyPress={this.ePress} autoComplete="off"></input><button type='button' id="quoteB" onClick={this.sButtonPressed}></button></div>
   }
 },
 ePress: function(event) {
     if (event.key == "Enter") {
     this.sButtonPressed()
-    document.getElementById('quoteSearch').value = ""
     }
 },
 buttonPressed: function(val) {
@@ -112,15 +111,12 @@ listClick: function(event) {
   this.buttonPressed(event.target.text)
 },
 sButtonPressed: function() {
+  this.currentText = document.getElementById('quoteSearch').value.toUpperCase()
+  document.getElementById('quoteSearch').value = ""
   this.showHome = false
   this.quotes = []
   this.fetchQuotes()
-  document.getElementById('quoteSearch').value = ""
   this.forceUpdate()
-},
-pressed: function(event) {
-  this.currentText = event.target.value.toUpperCase()
-  console.log(this.currentText)
 },
 fetchQuotes: function() {
   this.quotes = []
