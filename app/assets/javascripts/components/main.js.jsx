@@ -134,11 +134,10 @@ fetchQuotes: function() {
         console.log("Quote fetch error")
       },
       success: function(data) {
-        access = data.list.resources
-        for (i = 0; i < access.length; i++) {
-          sym = access[i].resource.fields.symbol
-          name = access[i].resource.fields.issuer_name
-          change = access[i].resource.fields.chg_percent
+        for (i = 0; i < data.length; i++) {
+          sym = data[i].t
+          name = "blank"
+          change = data[i].cp
           this.quotes.push([sym,name,change])
         }
         this.renderOk = true
@@ -155,10 +154,9 @@ fetchQuotes: function() {
         console.log("Quote fetch error")
       },
       success: function(data) {
-        access = data.list.resources
-        sym = access[0].resource.fields.symbol
-        name = access[0].resource.fields.issuer_name
-        change = access[0].resource.fields.chg_percent
+        sym = data[0].t
+        name = "blank"
+        change = data[0].cp
         this.quotes.push([sym,name,change])
         this.renderOk = true
         this.forceUpdate()
