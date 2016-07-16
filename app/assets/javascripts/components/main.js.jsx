@@ -111,11 +111,10 @@ listClick: function(event) {
   this.buttonPressed(event.target.text)
 },
 sButtonPressed: function() {
-  this.currentText = document.getElementById('quoteSearch').value.toUpperCase()
-  document.getElementById('quoteSearch').value = ""
   this.showHome = false
   this.quotes = []
   this.fetchQuotes()
+  document.getElementById('quoteSearch').value = ""
   this.forceUpdate()
 },
 fetchQuotes: function() {

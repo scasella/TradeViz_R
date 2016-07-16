@@ -123,11 +123,12 @@ tr {
 }
 #chart1, #chart2, #chart3  {
   width: 350px;
+  height: 240px;
   margin: 0 auto;
   margin-top: -25px;
 }
 #chart1F, #chart2F, #chart3F  {
-  margin-top: -5px;
+  //margin-top: -5px;
   width: 300px;
   margin: 0 auto;
 }
