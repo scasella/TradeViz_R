@@ -111,6 +111,7 @@ listClick: function(event) {
   this.buttonPressed(event.target.text)
 },
 sButtonPressed: function() {
+  this.currentText = document.getElementById('quoteSearch').value
   this.showHome = false
   this.quotes = []
   this.fetchQuotes()
@@ -215,13 +216,13 @@ formatQuote: function(sym,change,name) {
 
   if (change.charAt(0) == '-') {
     if (sym == "S&P 500" || sym == "DOW" || sym == "NASDAQ") {
-      return <div><p id="redChange">{tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<p value={sym} id="quotePar" style={finalStyle}>{sym}</p></div>
+      return <div><p id="redChange">{tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<p value={sym} id="quoteParNoLink" style={finalStyle}>{sym}</p></div>
     } else {
       return <div><p id="redChange">{tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<a onClick={this.quoteClick} value={sym} id="quotePar" style={finalStyle}>{sym}</a></div>
     }
   } else {
     if (sym == "S&P 500" || sym == "DOW" || sym == "NASDAQ") {
-      return <div><p id="greenChange">{"+"+tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<p value={sym} id="quotePar" style={finalStyle}>{sym}</p></div>
+      return <div><p id="greenChange">{"+"+tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<p value={sym} id="quoteParNoLink" style={finalStyle}>{sym}</p></div>
     } else {
         return <div><p id="greenChange">{"+"+tempChg+"%"}</p>{"\u00a0"}{"\u00a0"}<a onClick={this.quoteClick} value={sym} id="quotePar" style={finalStyle}>{sym}</a></div>
     }
