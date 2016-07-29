@@ -237,23 +237,25 @@ tr {
 }
 #quotePar {
   text-align: left;
-  font-weight: normal;
-  color: white
-}
-#quotePar {
-  text-align: left;
-  font-weight: normal;
-  color: white
-}
-a,a:link,a:visited,a:active,#quotePar{
-  cursor:pointer;
   margin-top: 20%;
   display: inline;
   font-weight: bold;
   font-family: 'Roboto', sans-serif;
   color: white
 }
+#quoteParNoLink {
+  text-align: left;
+  font-weight: normal;
+  margin-top: 20%;
+  display: inline;
+  font-family: 'Roboto', sans-serif;
+  color: white
+}
+a,a:link,a:visited,a:active,#quotePar{
+  cursor:pointer;
+}
 a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
+  cursor:pointer;
   color: #409fb6
 }
 #home-table {
