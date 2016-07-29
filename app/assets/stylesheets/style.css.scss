@@ -237,21 +237,21 @@ tr {
 }
 #quotePar {
   text-align: left;
-  margin-top: 20%;
-  display: inline;
-  font-weight: bold;
-  font-family: 'Roboto', sans-serif;
-  color: white
 }
 #quoteParNoLink {
   text-align: left;
-  font-weight: normal;
+  font-weight: bold;
   margin-top: 20%;
   display: inline;
   font-family: 'Roboto', sans-serif;
   color: white
 }
 a,a:link,a:visited,a:active,#quotePar{
+  margin-top: 20%;
+  display: inline;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+  color: white
   cursor:pointer;
 }
 a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
