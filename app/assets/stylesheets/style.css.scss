@@ -237,6 +237,8 @@ tr {
 }
 #quotePar {
   text-align: left;
+  margin-top: 20%;
+  display: inline;
 }
 #quoteParNoLink {
   text-align: left;
@@ -246,7 +248,7 @@ tr {
   font-family: 'Roboto', sans-serif;
   color: white
 }
-a,a:link,a:visited,a:active,#quotePar{
+a,a:link,a:visited,a:active,#quotePar, #about-link{
   margin-top: 20%;
   display: inline;
   font-weight: bold;
@@ -254,7 +256,7 @@ a,a:link,a:visited,a:active,#quotePar{
   color: white;
   cursor:pointer;
 }
-a:hover,#quotePar:hover,a.link:hover,#refresh:hover {
+a:hover,#quotePar:hover,a.link:hover,#refresh:hover, #about-link:hover {
   cursor:pointer;
   color: #409fb6
 }

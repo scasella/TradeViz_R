@@ -112,10 +112,13 @@ determinePL: function(num) {
 },
 computeSharpe: function(futureE,std,selection) {
   if (selection == 1) {
+    this.result1 = []
     this.result1.push(futureE,std,(Math.abs(futureE)/Math.abs(std)))
   } else if (selection == 2) {
+    this.result2 = []
     this.result2.push(futureE,std,(Math.abs(futureE)/Math.abs(std)))
   } else if (selection == 3) {
+    this.result3 = []
     this.result3.push(futureE,std,(Math.abs(futureE)/Math.abs(std)))
   }
 },

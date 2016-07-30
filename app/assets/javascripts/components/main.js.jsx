@@ -191,6 +191,8 @@ renderQuotes: function() {
 formatQuote: function(sym,change,name) {
   var tempChg = ((Math.round(parseFloat(change) * 100))/100)
   if (change.charAt(0) == '-') {
+    tempChg = tempChg.toString().slice(1)
+    tempChg = "–"+tempChg
     if (tempChg.toString().length == 4)
       tempChg = tempChg.toString()+"0"
   } else {
