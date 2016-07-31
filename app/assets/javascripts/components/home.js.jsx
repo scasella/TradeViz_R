@@ -15,7 +15,7 @@ dataHold: [],
 currentText: "SPY",
 dataDict: [],
 resultSymbols: [],
-showBest: false,
+showBest: true,
 isBull: 0,
 render: function() {
   return (
